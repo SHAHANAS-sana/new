@@ -1,204 +1,203 @@
-# yallist
+# URI.js
 
-Yet Another Linked List
+URI.js is an [RFC 3986](http://www.ietf.org/rfc/rfc3986.txt) compliant, scheme extendable URI parsing/validating/resolving library for all JavaScript environments (browsers, Node.js, etc).
+It is also compliant with the IRI ([RFC 3987](http://www.ietf.org/rfc/rfc3987.txt)), IDNA ([RFC 5890](http://www.ietf.org/rfc/rfc5890.txt)), IPv6 Address ([RFC 5952](http://www.ietf.org/rfc/rfc5952.txt)), IPv6 Zone Identifier ([RFC 6874](http://www.ietf.org/rfc/rfc6874.txt)) specifications.
 
-There are many doubly-linked list implementations like it, but this
-one is mine.
+URI.js has an extensive test suite, and works in all (Node.js, web) environments. It weighs in at 6.4kb (gzipped, 17kb deflated).
 
-For when an array would be too big, and a Map can't be iterated in
-reverse order.
+## API
 
+### Parsing
 
-[![Build Status](https://travis-ci.org/isaacs/yallist.svg?branch=master)](https://travis-ci.org/isaacs/yallist) [![Coverage Status](https://coveralls.io/repos/isaacs/yallist/badge.svg?service=github)](https://coveralls.io/github/isaacs/yallist)
+	URI.parse("uri://user:pass@example.com:123/one/two.three?q1=a1&q2=a2#body");
+	//returns:
+	//{
+	//  scheme : "uri",
+	//  userinfo : "user:pass",
+	//  host : "example.com",
+	//  port : 123,
+	//  path : "/one/two.three",
+	//  query : "q1=a1&q2=a2",
+	//  fragment : "body"
+	//}
 
-## basic usage
+### Serializing
 
-```javascript
-var yallist = require('yallist')
-var myList = yallist.create([1, 2, 3])
-myList.push('foo')
-myList.unshift('bar')
-// of course pop() and shift() are there, too
-console.log(myList.toArray()) // ['bar', 1, 2, 3, 'foo']
-myList.forEach(function (k) {
-  // walk the list head to tail
-})
-myList.forEachReverse(function (k, index, list) {
-  // walk the list tail to head
-})
-var myDoubledList = myList.map(function (k) {
-  return k + k
-})
-// now myDoubledList contains ['barbar', 2, 4, 6, 'foofoo']
-// mapReverse is also a thing
-var myDoubledListReverse = myList.mapReverse(function (k) {
-  return k + k
-}) // ['foofoo', 6, 4, 2, 'barbar']
+	URI.serialize({scheme : "http", host : "example.com", fragment : "footer"}) === "http://example.com/#footer"
 
-var reduced = myList.reduce(function (set, entry) {
-  set += entry
-  return set
-}, 'start')
-console.log(reduced) // 'startfoo123bar'
-```
+### Resolving
 
-## api
+	URI.resolve("uri://a/b/c/d?q", "../../g") === "uri://a/g"
 
-The whole API is considered "public".
+### Normalizing
 
-Functions with the same name as an Array method work more or less the
-same way.
+	URI.normalize("HTTP://ABC.com:80/%7Esmith/home.html") === "http://abc.com/~smith/home.html"
 
-There's reverse versions of most things because that's the point.
+### Comparison
 
-### Yallist
+	URI.equal("example://a/b/c/%7Bfoo%7D", "eXAMPLE://a/./b/../b/%63/%7bfoo%7d") === true
 
-Default export, the class that holds and manages a list.
+### IP Support
 
-Call it with either a forEach-able (like an array) or a set of
-arguments, to initialize the list.
+	//IPv4 normalization
+	URI.normalize("//192.068.001.000") === "//192.68.1.0"
 
-The Array-ish methods all act like you'd expect.  No magic length,
-though, so if you change that it won't automatically prune or add
-empty spots.
+	//IPv6 normalization
+	URI.normalize("//[2001:0:0DB8::0:0001]") === "//[2001:0:db8::1]"
 
-### Yallist.create(..)
+	//IPv6 zone identifier support
+	URI.parse("//[2001:db8::7%25en1]");
+	//returns:
+	//{
+	//  host : "2001:db8::7%en1"
+	//}
 
-Alias for Yallist function.  Some people like factories.
+### IRI Support
 
-#### yallist.head
+	//convert IRI to URI
+	URI.serialize(URI.parse("http://examplé.org/rosé")) === "http://xn--exampl-gva.org/ros%C3%A9"
+	//convert URI to IRI
+	URI.serialize(URI.parse("http://xn--exampl-gva.org/ros%C3%A9"), {iri:true}) === "http://examplé.org/rosé"
 
-The first node in the list
+### Options
 
-#### yallist.tail
+All of the above functions can accept an additional options argument that is an object that can contain one or more of the following properties:
 
-The last node in the list
+*	`scheme` (string)
 
-#### yallist.length
+	Indicates the scheme that the URI should be treated as, overriding the URI's normal scheme parsing behavior.
 
-The number of nodes in the list.  (Change this at your peril.  It is
-not magic like Array length.)
+*	`reference` (string)
 
-#### yallist.toArray()
+	If set to `"suffix"`, it indicates that the URI is in the suffix format, and the validator will use the option's `scheme` property to determine the URI's scheme.
 
-Convert the list to an array.
+*	`tolerant` (boolean, false)
 
-#### yallist.forEach(fn, [thisp])
+	If set to `true`, the parser will relax URI resolving rules.
 
-Call a function on each item in the list.
+*	`absolutePath` (boolean, false)
 
-#### yallist.forEachReverse(fn, [thisp])
+	If set to `true`, the serializer will not resolve a relative `path` component.
 
-Call a function on each item in the list, in reverse order.
+*	`iri` (boolean, false)
 
-#### yallist.get(n)
+	If set to `true`, the serializer will unescape non-ASCII characters as per [RFC 3987](http://www.ietf.org/rfc/rfc3987.txt).
 
-Get the data at position `n` in the list.  If you use this a lot,
-probably better off just using an Array.
+*	`unicodeSupport` (boolean, false)
 
-#### yallist.getReverse(n)
+	If set to `true`, the parser will unescape non-ASCII characters in the parsed output as per [RFC 3987](http://www.ietf.org/rfc/rfc3987.txt).
 
-Get the data at position `n`, counting from the tail.
+*	`domainHost` (boolean, false)
 
-#### yallist.map(fn, thisp)
+	If set to `true`, the library will treat the `host` component as a domain name, and convert IDNs (International Domain Names) as per [RFC 5891](http://www.ietf.org/rfc/rfc5891.txt).
 
-Create a new Yallist with the result of calling the function on each
-item.
+## Scheme Extendable
 
-#### yallist.mapReverse(fn, thisp)
+URI.js supports inserting custom [scheme](http://en.wikipedia.org/wiki/URI_scheme) dependent processing rules. Currently, URI.js has built in support for the following schemes:
 
-Same as `map`, but in reverse.
+*	http \[[RFC 2616](http://www.ietf.org/rfc/rfc2616.txt)\]
+*	https \[[RFC 2818](http://www.ietf.org/rfc/rfc2818.txt)\]
+*	ws \[[RFC 6455](http://www.ietf.org/rfc/rfc6455.txt)\]
+*	wss \[[RFC 6455](http://www.ietf.org/rfc/rfc6455.txt)\]
+*	mailto \[[RFC 6068](http://www.ietf.org/rfc/rfc6068.txt)\]
+*	urn \[[RFC 2141](http://www.ietf.org/rfc/rfc2141.txt)\]
+*	urn:uuid \[[RFC 4122](http://www.ietf.org/rfc/rfc4122.txt)\]
 
-#### yallist.pop()
+### HTTP/HTTPS Support
 
-Get the data from the list tail, and remove the tail from the list.
+	URI.equal("HTTP://ABC.COM:80", "http://abc.com/") === true
+	URI.equal("https://abc.com", "HTTPS://ABC.COM:443/") === true
 
-#### yallist.push(item, ...)
+### WS/WSS Support
 
-Insert one or more items to the tail of the list.
+	URI.parse("wss://example.com/foo?bar=baz");
+	//returns:
+	//{
+	//	scheme : "wss",
+	//	host: "example.com",
+	//	resourceName: "/foo?bar=baz",
+	//	secure: true,
+	//}
 
-#### yallist.reduce(fn, initialValue)
+	URI.equal("WS://ABC.COM:80/chat#one", "ws://abc.com/chat") === true
 
-Like Array.reduce.
+### Mailto Support
 
-#### yallist.reduceReverse
+	URI.parse("mailto:alpha@example.com,bravo@example.com?subject=SUBSCRIBE&body=Sign%20me%20up!");
+	//returns:
+	//{
+	//	scheme : "mailto",
+	//	to : ["alpha@example.com", "bravo@example.com"],
+	//	subject : "SUBSCRIBE",
+	//	body : "Sign me up!"
+	//}
 
-Like Array.reduce, but in reverse.
+	URI.serialize({
+		scheme : "mailto",
+		to : ["alpha@example.com"],
+		subject : "REMOVE",
+		body : "Please remove me",
+		headers : {
+			cc : "charlie@example.com"
+		}
+	}) === "mailto:alpha@example.com?cc=charlie@example.com&subject=REMOVE&body=Please%20remove%20me"
 
-#### yallist.reverse
+### URN Support
 
-Reverse the list in place.
+	URI.parse("urn:example:foo");
+	//returns:
+	//{
+	//	scheme : "urn",
+	//	nid : "example",
+	//	nss : "foo",
+	//}
 
-#### yallist.shift()
+#### URN UUID Support
 
-Get the data from the list head, and remove the head from the list.
+	URI.parse("urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6");
+	//returns:
+	//{
+	//	scheme : "urn",
+	//	nid : "uuid",
+	//	uuid : "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
+	//}
 
-#### yallist.slice([from], [to])
+## Usage
 
-Just like Array.slice, but returns a new Yallist.
+To load in a browser, use the following tag:
 
-#### yallist.sliceReverse([from], [to])
+	<script type="text/javascript" src="uri-js/dist/es5/uri.all.min.js"></script>
 
-Just like yallist.slice, but the result is returned in reverse.
+To load in a CommonJS/Module environment, first install with npm/yarn by running on the command line:
 
-#### yallist.toArray()
+	npm install uri-js
+	# OR
+	yarn add uri-js
 
-Create an array representation of the list.
+Then, in your code, load it using:
 
-#### yallist.toArrayReverse()
+	const URI = require("uri-js");
 
-Create a reversed array representation of the list.
+If you are writing your code in ES6+ (ESNEXT) or TypeScript, you would load it using:
 
-#### yallist.unshift(item, ...)
+	import * as URI from "uri-js";
 
-Insert one or more items to the head of the list.
+Or you can load just what you need using named exports:
 
-#### yallist.unshiftNode(node)
+	import { parse, serialize, resolve, resolveComponents, normalize, equal, removeDotSegments, pctEncChar, pctDecChars, escapeComponent, unescapeComponent } from "uri-js";
 
-Move a Node object to the front of the list.  (That is, pull it out of
-wherever it lives, and make it the new head.)
+## Breaking changes
 
-If the node belongs to a different list, then that list will remove it
-first.
+### Breaking changes from 3.x
 
-#### yallist.pushNode(node)
+URN parsing has been completely changed to better align with the specification. Scheme is now always `urn`, but has two new properties: `nid` which contains the Namspace Identifier, and `nss` which contains the Namespace Specific String. The `nss` property will be removed by higher order scheme handlers, such as the UUID URN scheme handler.
 
-Move a Node object to the end of the list.  (That is, pull it out of
-wherever it lives, and make it the new tail.)
+The UUID of a URN can now be found in the `uuid` property.
 
-If the node belongs to a list already, then that list will remove it
-first.
+### Breaking changes from 2.x
 
-#### yallist.removeNode(node)
+URI validation has been removed as it was slow, exposed a vulnerabilty, and was generally not useful.
 
-Remove a node from the list, preserving referential integrity of head
-and tail and other nodes.
+### Breaking changes from 1.x
 
-Will throw an error if you try to have a list remove a node that
-doesn't belong to it.
-
-### Yallist.Node
-
-The class that holds the data and is actually the list.
-
-Call with `var n = new Node(value, previousNode, nextNode)`
-
-Note that if you do direct operations on Nodes themselves, it's very
-easy to get into weird states where the list is broken.  Be careful :)
-
-#### node.next
-
-The next node in the list.
-
-#### node.prev
-
-The previous node in the list.
-
-#### node.value
-
-The data the node contains.
-
-#### node.list
-
-The list to which this node belongs.  (Null if it does not belong to
-any list.)
+The `errors` array on parsed components is now an `error` string.
