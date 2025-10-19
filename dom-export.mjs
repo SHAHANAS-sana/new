@@ -12,7 +12,7 @@
 import {
   deserializeErrors,
   getHydrationData
-} from "./chunk-FR6HSPLK.mjs";
+} from "./chunk-WY5IRSCW.mjs";
 import {
   CRITICAL_CSS_DATA_ATTRIBUTE,
   FrameworkContext,
@@ -29,7 +29,7 @@ import {
   invariant,
   mapRouteProperties,
   useFogOFWarDiscovery
-} from "./chunk-3TADTUL4.mjs";
+} from "./chunk-OIYGIGL5.mjs";
 
 // lib/dom-export/dom-router-provider.tsx
 import * as React from "react";

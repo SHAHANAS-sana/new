@@ -11,7 +11,7 @@
 "use client";
 
 
-var _chunk4E5LHRQPjs = require('./chunk-4E5LHRQP.js');
+var _chunkDI2QHYMJjs = require('./chunk-DI2QHYMJ.js');
 
 // lib/dom-export/dom-router-provider.tsx
 var _react = require('react'); var React = _interopRequireWildcard(_react); var React2 = _interopRequireWildcard(_react);
@@ -180,7 +180,7 @@ function HydratedRouter(props) {
   }, []);
   React2.useEffect(() => {
     if (process.env.NODE_ENV === "development" && criticalCss === void 0) {
-      document.querySelectorAll(`[${_chunk4E5LHRQPjs.CRITICAL_CSS_DATA_ATTRIBUTE}]`).forEach((element) => element.remove());
+      document.querySelectorAll(`[${_chunkDI2QHYMJjs.CRITICAL_CSS_DATA_ATTRIBUTE}]`).forEach((element) => element.remove());
     }
   }, [criticalCss]);
   let [location, setLocation] = React2.useState(router.state.location);
