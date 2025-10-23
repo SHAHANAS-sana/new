@@ -1,3 +1,6 @@
+import { House } from 'lucide-react';
+import { Info } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 
@@ -6,17 +9,20 @@ const Navbar = () => {
     <>
       <div className="main-nav">
         <div className="navbar">
-          <img src="logo.jpg" className="logo" />
+          <img src="icon-img.png" className="logo" />
           <div className="board">
             <h1 className="alr">Alrams</h1>
             <h4>Furniture & Interior</h4>
           </div>
           <div className="rigth">
             <Link className="nav" to="/">
-              Home
+              <House className='nav-icon' /> Home
             </Link>
             <Link className="nav" to="/about">
-              About
+             <Info className='nav-icon'/> About
+            </Link>
+             <Link className="nav" to="/products">
+             <ShoppingCart className='nav-icon' /> Products
             </Link>
           </div>
         </div>

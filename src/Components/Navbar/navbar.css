@@ -17,8 +17,9 @@
 }
 
 .rigth {
+  padding-top: 10px;
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 
 .nav {
@@ -26,6 +27,13 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-icon{
+  position: absolute;
+  bottom: 20px;
+  left: 8px;
 }
 
 .nav:hover {
@@ -38,8 +46,8 @@
 }
 
 .logo {
-  height: 80px;
-  width: 90px;
+  height: 70px;
+  width: 80px;
   object-fit: fill;
 }
 
