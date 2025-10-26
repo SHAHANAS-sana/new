@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import WhatsAppButton from '../components/whatsappButton/whatsapp';
 
 const MainLayout = ({ children }) => {
   return (
@@ -67,12 +68,7 @@ const MainLayout = ({ children }) => {
 
       {/* Quick Actions */}
       <div className="fixed bottom-4 right-4 flex flex-col space-y-2">
-        <button className="bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600">
-          <span className="sr-only">WhatsApp Support</span>
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10c0-5.52-4.48-10-10-10zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-          </svg>
-        </button>
+        <WhatsAppButton />
         <button className="bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark">
           <span className="sr-only">Quick Add Alarm</span>
           <svg
