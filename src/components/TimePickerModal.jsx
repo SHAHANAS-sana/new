@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 
-const TimePickerModal = ({ isOpen, onClose, onSave, initialTime = '', initialLabel = '' }) => {
+const TimePickerModal = ({
+  isOpen,
+  onClose,
+  onSave,
+  initialTime = '',
+  initialLabel = '',
+}) => {
   const [time, setTime] = useState(initialTime);
   const [label, setLabel] = useState(initialLabel);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     onSave({ time, label });
     onClose();
@@ -18,27 +24,33 @@ const TimePickerModal = ({ isOpen, onClose, onSave, initialTime = '', initialLab
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">Set Alarm</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="time" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="time"
+              className="block text-sm font-medium text-gray-700"
+            >
               Time
             </label>
             <input
               type="time"
               id="time"
               value={time}
-              onChange={(e) => setTime(e.target.value)}
+              onChange={e => setTime(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
               required
             />
           </div>
           <div>
-            <label htmlFor="label" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="label"
+              className="block text-sm font-medium text-gray-700"
+            >
               Label
             </label>
             <input
               type="text"
               id="label"
               value={label}
-              onChange={(e) => setLabel(e.target.value)}
+              onChange={e => setLabel(e.target.value)}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
               placeholder="Enter alarm label"
             />

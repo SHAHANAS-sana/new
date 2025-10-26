@@ -7,38 +7,41 @@ const AlarmsContainer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingAlarm, setEditingAlarm] = useState(null);
 
-  const handleAddAlarm = (alarmData) => {
+  const handleAddAlarm = alarmData => {
     if (editingAlarm) {
-      setAlarms(alarms.map(alarm => 
-        alarm.id === editingAlarm.id 
-          ? { ...alarm, ...alarmData }
-          : alarm
-      ));
+      setAlarms(
+        alarms.map(alarm =>
+          alarm.id === editingAlarm.id ? { ...alarm, ...alarmData } : alarm
+        )
+      );
       setEditingAlarm(null);
     } else {
-      setAlarms([...alarms, {
-        id: Date.now(),
-        ...alarmData,
-        isActive: true
-      }]);
+      setAlarms([
+        ...alarms,
+        {
+          id: Date.now(),
+          ...alarmData,
+          isActive: true,
+        },
+      ]);
     }
   };
 
-  const handleEditAlarm = (alarm) => {
+  const handleEditAlarm = alarm => {
     setEditingAlarm(alarm);
     setIsModalOpen(true);
   };
 
-  const handleDeleteAlarm = (alarmId) => {
+  const handleDeleteAlarm = alarmId => {
     setAlarms(alarms.filter(alarm => alarm.id !== alarmId));
   };
 
-  const handleToggleAlarm = (alarmId) => {
-    setAlarms(alarms.map(alarm => 
-      alarm.id === alarmId 
-        ? { ...alarm, isActive: !alarm.isActive }
-        : alarm
-    ));
+  const handleToggleAlarm = alarmId => {
+    setAlarms(
+      alarms.map(alarm =>
+        alarm.id === alarmId ? { ...alarm, isActive: !alarm.isActive } : alarm
+      )
+    );
   };
 
   return (
