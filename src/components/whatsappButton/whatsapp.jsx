@@ -6,7 +6,9 @@ const WhatsAppButton = () => {
   const message = 'Hello! I need assistance with Smart Alarms.'; // Default message
 
   const handleClick = () => {
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
     window.open(url, '_blank');
   };
 
