@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --emptyOutDir",
     "preview": "vite preview"
   },
   "engines": {
-    "node": ">=18.x"
+    "node": "18.x"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -24,6 +24,6 @@
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.29",
     "tailwindcss": "^3.3.3",
-    "vite": "^4.4.5"
+    "vite": "^4.5.14"
   }
 }
