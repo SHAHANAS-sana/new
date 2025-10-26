@@ -13,8 +13,8 @@ function App() {
           <Route path="/" element={<AlarmsContainer />} />
           <Route path="/alarms" element={<AlarmsContainer />} />
           <Route path="/about" element={<About />} />
-          <WhatsAppButton />
         </Routes>
+        <WhatsAppButton />
       </MainLayout>
     </Router>
   );

@@ -1,19 +1,23 @@
-import React from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import React from 'react';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const WhatsAppButton = () => {
-  const phoneNumber = "91XXXXXXXXXX"; // 👉 Replace with your number
-  const message = "Hi there! I'm interested in your products.";
+  const phoneNumber = '1234567890'; // Replace with your WhatsApp number
+  const message = 'Hello! I need assistance with Smart Alarms.'; // Default message
+
+  const handleClick = () => {
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
 
   return (
-    <a
-      href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`}
-      className="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110 z-50"
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      onClick={handleClick}
+      className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-300 z-50 flex items-center justify-center"
+      aria-label="Contact us on WhatsApp"
     >
-      <FaWhatsapp size={32} />
-    </a>
+      <FaWhatsapp className="text-2xl" />
+    </button>
   );
 };
 
