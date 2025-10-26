@@ -1,25 +1,23 @@
-import { Route, Routes } from 'react-router-dom';
-import Navbar from './Components/Navbar/navbar';
-import WhatsAppButton from './Components/WhatsApp/whatsapp';
-import Home from './Pages/Home/home';
-import About from './Pages/About/about';
-import Products from './Pages/Products/product';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import WhatsAppButton from './components/whatsappButton/whatsapp';
+import AlarmsContainer from './containers/AlarmsContainer';
+import About from './pages/About';
 
-
-const App = () => {
+function App() {
   return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/products" element={<Products />} />
-
-      </Routes>
-      <WhatsAppButton />
-    </>
+    <Router>
+      <MainLayout>
+        <Routes>
+          <Route path="/" element={<AlarmsContainer />} />
+          <Route path="/alarms" element={<AlarmsContainer />} />
+          <Route path="/about" element={<About />} />
+          <WhatsAppButton/>
+        </Routes>
+      </MainLayout>
+    </Router>
   );
-};
+}
 
 export default App;
