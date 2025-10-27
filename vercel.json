@@ -1,14 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "installCommand": "npm install",
-        "buildCommand": "npx vite build",
-        "outputDirectory": "dist"
-      }
-    }
-  ]
+  "buildCommand": "chmod +x build.sh && ./build.sh",
+  "installCommand": "npm install",
+  "framework": "vite",
+  "outputDirectory": "dist"
 }
