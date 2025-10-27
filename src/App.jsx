@@ -4,13 +4,14 @@ import MainLayout from './layouts/MainLayout';
 import WhatsAppButton from './components/whatsappButton/whatsapp';
 import AlarmsContainer from './containers/AlarmsContainer';
 import About from './pages/About';
+import Home from './pages/Home';
 
 function App() {
   return (
     <Router>
       <MainLayout>
         <Routes>
-          <Route path="/" element={<AlarmsContainer />} />
+          <Route path="/" element={<Home />} />
           <Route path="/alarms" element={<AlarmsContainer />} />
           <Route path="/about" element={<About />} />
         </Routes>

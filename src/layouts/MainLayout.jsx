@@ -1,63 +1,16 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const MainLayout = ({ children }) => {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* Top Banner */}
-      <div className="bg-primary text-white text-center py-2 text-sm">
-        Special Offer: Get Premium Features Free for 30 Days! 🎉
-      </div>
-
-      {/* Header */}
-      <header className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto">
-          {/* Top Header */}
-          <div className="border-b border-gray-200">
-            <div className="flex justify-between items-center py-2 px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center space-x-4">
-                <a
-                  href="tel:1800-123-4567"
-                  className="text-sm text-gray-600 hover:text-primary"
-                >
-                  <span className="hidden sm:inline">Customer Support:</span>{' '}
-                  1800-123-4567
-                </a>
-                <a
-                  href="mailto:support@smartalarms.com"
-                  className="text-sm text-gray-600 hover:text-primary hidden sm:block"
-                >
-                  support@smartalarms.com
-                </a>
-              </div>
-              <div className="flex items-center space-x-4">
-                <a
-                  href="/download"
-                  className="text-sm text-gray-600 hover:text-primary"
-                >
-                  Download App
-                </a>
-                <a
-                  href="/register"
-                  className="text-sm text-gray-600 hover:text-primary"
-                >
-                  Register
-                </a>
-                <a
-                  href="/login"
-                  className="text-sm text-gray-600 hover:text-primary"
-                >
-                  Login
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Main Navigation */}
-          <Navbar />
-        </div>
-      </header>
+    <div className={`min-h-screen flex flex-col ${isHomePage ? '' : 'bg-gray-50'}`}>
+      {/* Navbar */}
+      <Navbar />
 
       {/* Main Content */}
       <main className="flex-grow">{children}</main>
