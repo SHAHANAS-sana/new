@@ -8,7 +8,9 @@ const MainLayout = ({ children }) => {
   const isHomePage = location.pathname === '/';
 
   return (
-    <div className={`min-h-screen flex flex-col ${isHomePage ? '' : 'bg-gray-50'}`}>
+    <div
+      className={`min-h-screen flex flex-col ${isHomePage ? '' : 'bg-gray-50'}`}
+    >
       {/* Navbar */}
       <Navbar />
 

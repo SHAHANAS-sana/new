@@ -28,7 +28,11 @@ const Footer = () => {
     SOCIAL: [
       { name: 'Twitter', path: 'https://twitter.com', icon: <FaTwitter /> },
       { name: 'Facebook', path: 'https://facebook.com', icon: <FaFacebookF /> },
-      { name: 'LinkedIn', path: 'https://linkedin.com', icon: <FaLinkedinIn /> },
+      {
+        name: 'LinkedIn',
+        path: 'https://linkedin.com',
+        icon: <FaLinkedinIn />,
+      },
       { name: 'Google', path: 'https://google.com', icon: <FcGoogle /> },
     ],
   };
@@ -39,9 +43,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h3 className="text-gray-400 text-sm font-medium mb-4">{category}</h3>
+              <h3 className="text-gray-400 text-sm font-medium mb-4">
+                {category}
+              </h3>
               <ul className="space-y-2">
-                {links.map((link) => (
+                {links.map(link => (
                   <li key={link.name}>
                     {category === 'SOCIAL' ? (
                       <a

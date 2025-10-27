@@ -52,7 +52,11 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-colors duration-300 ${isHomePage ? 'bg-transparent' : 'bg-white'}`}>
+    <nav
+      className={`fixed w-full z-50 transition-colors duration-300 ${
+        isHomePage ? 'bg-transparent' : 'bg-white'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           {/* Logo */}
@@ -71,8 +75,17 @@ const Navbar = () => {
                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span className={`text-2xl font-bold ${isHomePage ? 'text-white' : 'text-gray-800'}`}>
-                Smart<span className={isHomePage ? 'text-purple-300' : 'text-primary'}>Alarms</span>
+              <span
+                className={`text-2xl font-bold ${
+                  isHomePage ? 'text-white' : 'text-gray-800'
+                }`}
+              >
+                Smart
+                <span
+                  className={isHomePage ? 'text-purple-300' : 'text-primary'}
+                >
+                  Alarms
+                </span>
               </span>
             </Link>
           </div>
@@ -83,7 +96,11 @@ const Navbar = () => {
               <div key={item.name} className="relative group">
                 <button
                   onClick={() => toggleDropdown(item.name)}
-                  className={`px-4 py-2 ${isHomePage ? 'text-white hover:text-purple-200' : 'text-gray-600 hover:text-primary'} focus:outline-none flex items-center space-x-1`}
+                  className={`px-4 py-2 ${
+                    isHomePage
+                      ? 'text-white hover:text-purple-200'
+                      : 'text-gray-600 hover:text-primary'
+                  } focus:outline-none flex items-center space-x-1`}
                 >
                   <span>{item.name}</span>
                   <svg
@@ -101,7 +118,11 @@ const Navbar = () => {
                   </svg>
                 </button>
                 {isDropdownOpen === item.name && (
-                  <div className={`absolute z-50 left-0 mt-2 w-48 rounded-md shadow-lg py-2 ${isHomePage ? 'bg-white/90 backdrop-blur-lg' : 'bg-white'}`}>
+                  <div
+                    className={`absolute z-50 left-0 mt-2 w-48 rounded-md shadow-lg py-2 ${
+                      isHomePage ? 'bg-white/90 backdrop-blur-lg' : 'bg-white'
+                    }`}
+                  >
                     {item.submenu.map(subItem => (
                       <Link
                         key={subItem.name}
@@ -119,7 +140,13 @@ const Navbar = () => {
 
           {/* Search and Cart */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className={`${isHomePage ? 'text-white hover:text-purple-200' : 'text-gray-600 hover:text-primary'}`}>
+            <button
+              className={`${
+                isHomePage
+                  ? 'text-white hover:text-purple-200'
+                  : 'text-gray-600 hover:text-primary'
+              }`}
+            >
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -135,7 +162,14 @@ const Navbar = () => {
               </svg>
             </button>
             <div className="h-6 w-px bg-gray-200"></div>
-            <Link to="/profile" className={`${isHomePage ? 'text-white hover:text-purple-200' : 'text-gray-600 hover:text-primary'}`}>
+            <Link
+              to="/profile"
+              className={`${
+                isHomePage
+                  ? 'text-white hover:text-purple-200'
+                  : 'text-gray-600 hover:text-primary'
+              }`}
+            >
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -156,7 +190,11 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`${isHomePage ? 'text-white hover:text-purple-200' : 'text-gray-600 hover:text-primary'} focus:outline-none p-2`}
+              className={`${
+                isHomePage
+                  ? 'text-white hover:text-purple-200'
+                  : 'text-gray-600 hover:text-primary'
+              } focus:outline-none p-2`}
             >
               <svg
                 className="h-6 w-6"
