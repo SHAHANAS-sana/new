@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaInstagram, FaFacebookF, FaLinkedinIn, FaGoogle } from 'react-icons/fa';
+import {
+  FaInstagram,
+  FaFacebookF,
+  FaLinkedinIn,
+  FaGoogle,
+} from 'react-icons/fa';
 
 const Footer = () => {
   const footerLinks = [

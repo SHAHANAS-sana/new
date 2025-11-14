@@ -1,7 +1,7 @@
 const API_URL = 'http://localhost:5000/api';
 
 const api = {
-  get: async (path) => {
+  get: async path => {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${API_URL}${path}`, {
@@ -55,10 +55,10 @@ const api = {
       console.error('API error:', error);
       throw error;
     }
-  }
+  },
 };
 
-export const loginUser = async (credentials) => {
+export const loginUser = async credentials => {
   try {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',

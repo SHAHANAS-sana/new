@@ -14,34 +14,34 @@ const Contact = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
     }
-    
+
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
     } else if (!/^\+?[\d-]{10,}$/.test(formData.phone.replace(/\s/g, ''))) {
       newErrors.phone = 'Please enter a valid phone number';
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
     }
-    
+
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const newErrors = validateForm();
-    
+
     if (Object.keys(newErrors).length === 0) {
       setIsSubmitting(true);
       try {
@@ -60,7 +60,7 @@ const Contact = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -101,7 +101,8 @@ const Contact = () => {
               )}
               {submitStatus === 'error' && (
                 <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">
-                  Sorry, there was an error sending your message. Please try again.
+                  Sorry, there was an error sending your message. Please try
+                  again.
                 </div>
               )}
               <div>

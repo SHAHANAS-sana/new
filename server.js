@@ -23,12 +23,12 @@ app.use(express.json());
 // Set up Multer for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
     const uniqueName = `${uuidv4()}-${file.originalname}`;
     cb(null, uniqueName);
-  }
+  },
 });
 
 const upload = multer({ storage: storage });
@@ -38,7 +38,8 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/uploads', express.static('uploads'));
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/alram-db')
+mongoose
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/alram-db')
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
@@ -81,7 +82,7 @@ app.get('/api/content/:page/:section', async (req, res) => {
   try {
     const content = await Content.findOne({
       page: req.params.page,
-      section: req.params.section
+      section: req.params.section,
     });
     res.json(content);
   } catch (error) {
@@ -89,29 +90,36 @@ app.get('/api/content/:page/:section', async (req, res) => {
   }
 });
 
-app.put('/api/admin/content/:page/:section', authMiddleware, upload.array('images'), async (req, res) => {
-  try {
-    const { text, styles } = req.body;
-    const images = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
+app.put(
+  '/api/admin/content/:page/:section',
+  authMiddleware,
+  upload.array('images'),
+  async (req, res) => {
+    try {
+      const { text, styles } = req.body;
+      const images = req.files
+        ? req.files.map(file => `/uploads/${file.filename}`)
+        : [];
 
-    const content = await Content.findOneAndUpdate(
-      { page: req.params.page, section: req.params.section },
-      {
-        content: {
-          text,
-          images: images.length > 0 ? images : undefined,
-          styles: JSON.parse(styles)
+      const content = await Content.findOneAndUpdate(
+        { page: req.params.page, section: req.params.section },
+        {
+          content: {
+            text,
+            images: images.length > 0 ? images : undefined,
+            styles: JSON.parse(styles),
+          },
+          updatedBy: req.user._id,
         },
-        updatedBy: req.user._id
-      },
-      { new: true, upsert: true }
-    );
+        { new: true, upsert: true }
+      );
 
-    res.json(content);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+      res.json(content);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
-});
+);
 
 // Auth Routes
 app.post('/api/auth/login', async (req, res) => {
@@ -119,7 +127,7 @@ app.post('/api/auth/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
-    if (!user || !await user.comparePassword(password)) {
+    if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
@@ -129,7 +137,10 @@ app.post('/api/auth/login', async (req, res) => {
       { expiresIn: '24h' }
     );
 
-    res.json({ token, user: { id: user._id, email: user.email, isAdmin: user.isAdmin } });
+    res.json({
+      token,
+      user: { id: user._id, email: user.email, isAdmin: user.isAdmin },
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

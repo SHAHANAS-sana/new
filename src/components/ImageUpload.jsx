@@ -1,12 +1,12 @@
 import React from 'react';
 
 const ImageUpload = ({ images, onChange }) => {
-  const handleFileChange = (e) => {
+  const handleFileChange = e => {
     const files = Array.from(e.target.files);
     onChange([...images, ...files]);
   };
 
-  const handleRemove = (index) => {
+  const handleRemove = index => {
     const newImages = [...images];
     newImages.splice(index, 1);
     onChange(newImages);
@@ -25,7 +25,9 @@ const ImageUpload = ({ images, onChange }) => {
         {images.map((image, index) => (
           <div key={index} className="relative">
             <img
-              src={typeof image === 'string' ? image : URL.createObjectURL(image)}
+              src={
+                typeof image === 'string' ? image : URL.createObjectURL(image)
+              }
               alt={`Upload ${index + 1}`}
               className="w-full h-32 object-cover rounded"
             />

@@ -17,7 +17,10 @@ const Cart = () => {
   //   }
   // ]);
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
   const shipping = cartItems.length > 0 ? 500 : 0;
   const total = subtotal + shipping;
 
@@ -26,7 +29,9 @@ const Cart = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <div className="flex items-center text-sm text-gray-600 mb-6">
-          <Link to="/" className="hover:text-[#404b39]">Home</Link>
+          <Link to="/" className="hover:text-[#404b39]">
+            Home
+          </Link>
           <span className="mx-2">/</span>
           <span className="text-gray-900 font-medium">Shopping Cart</span>
         </div>
@@ -57,9 +62,9 @@ const Cart = () => {
                 Explore around to add items in your shopping bag
               </p>
               <Link
-                    to="/"
-                    className="inline-block px-8 py-3 bg-[#81634b] text-white rounded-md hover:bg-[#6b5340] transition-colors font-medium"
-                  >
+                to="/"
+                className="inline-block px-8 py-3 bg-[#81634b] text-white rounded-md hover:bg-[#6b5340] transition-colors font-medium"
+              >
                 EXPLORE
               </Link>
             </div>
@@ -70,7 +75,7 @@ const Cart = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-sm">
-                {cartItems.map((item) => (
+                {cartItems.map(item => (
                   <div
                     key={item.id}
                     className="flex flex-col sm:flex-row gap-4 p-6 border-b border-gray-200 last:border-b-0"
@@ -127,7 +132,9 @@ const Cart = () => {
                           <span className="text-sm text-gray-600">Qty:</span>
                           <div className="flex items-center border border-gray-300 rounded">
                             <button
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity - 1)
+                              }
                               className="px-3 py-1 hover:bg-gray-100 transition-colors"
                             >
                               -
@@ -136,7 +143,9 @@ const Cart = () => {
                               {item.quantity}
                             </span>
                             <button
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity + 1)
+                              }
                               className="px-3 py-1 hover:bg-gray-100 transition-colors"
                             >
                               +
@@ -217,16 +226,24 @@ const Cart = () => {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     <div className="w-12 h-8 bg-gray-100 rounded flex items-center justify-center">
-                      <span className="text-xs font-bold text-gray-600">VISA</span>
+                      <span className="text-xs font-bold text-gray-600">
+                        VISA
+                      </span>
                     </div>
                     <div className="w-12 h-8 bg-gray-100 rounded flex items-center justify-center">
-                      <span className="text-xs font-bold text-gray-600">MC</span>
+                      <span className="text-xs font-bold text-gray-600">
+                        MC
+                      </span>
                     </div>
                     <div className="w-12 h-8 bg-gray-100 rounded flex items-center justify-center">
-                      <span className="text-xs font-bold text-gray-600">UPI</span>
+                      <span className="text-xs font-bold text-gray-600">
+                        UPI
+                      </span>
                     </div>
                     <div className="w-12 h-8 bg-gray-100 rounded flex items-center justify-center">
-                      <span className="text-xs font-bold text-gray-600">AMEX</span>
+                      <span className="text-xs font-bold text-gray-600">
+                        AMEX
+                      </span>
                     </div>
                   </div>
                 </div>

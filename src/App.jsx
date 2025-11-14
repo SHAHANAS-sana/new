@@ -22,22 +22,24 @@ function App() {
     <AuthProvider>
       <ContentProvider>
         <CartProvider>
-          <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <Router
+            future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+          >
             <MainLayout>
-            <ToastContainer />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/alarms" element={<AlarmsContainer />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/login" element={<AuthPage />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/category/:category" element={<CategoryPage />} />
-            </Routes>
-            <FloatingButtons />
-          </MainLayout>
-        </Router>
+              <ToastContainer />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/alarms" element={<AlarmsContainer />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/login" element={<AuthPage />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/category/:category" element={<CategoryPage />} />
+              </Routes>
+              <FloatingButtons />
+            </MainLayout>
+          </Router>
         </CartProvider>
       </ContentProvider>
     </AuthProvider>

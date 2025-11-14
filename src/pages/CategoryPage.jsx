@@ -149,7 +149,12 @@ const CategoryPage = () => {
   ];
 
   const filters = {
-    price: ['Under ₹10,000', '₹10,000 - ₹25,000', '₹25,000 - ₹50,000', 'Above ₹50,000'],
+    price: [
+      'Under ₹10,000',
+      '₹10,000 - ₹25,000',
+      '₹25,000 - ₹50,000',
+      'Above ₹50,000',
+    ],
     category: ['Sofas', 'Chairs', 'Tables', 'Cabinets', 'Recliners'],
     color: ['Beige', 'Gray', 'Brown', 'Blue', 'Green'],
     material: ['Fabric', 'Leather', 'Wood', 'Metal', 'Velvet'],
@@ -160,15 +165,22 @@ const CategoryPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <div className="flex items-center text-sm text-gray-600 mb-6">
-          <Link to="/" className="hover:text-[#81634b]">Home</Link>
+          <Link to="/" className="hover:text-[#81634b]">
+            Home
+          </Link>
           <span className="mx-2">/</span>
           <span className="text-gray-900 font-medium">{categoryTitle}</span>
         </div>
 
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{categoryTitle}</h1>
-          <p className="text-gray-600">Discover our premium collection of {categoryTitle.toLowerCase()} furniture</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+            {categoryTitle}
+          </h1>
+          <p className="text-gray-600">
+            Discover our premium collection of {categoryTitle.toLowerCase()}{' '}
+            furniture
+          </p>
         </div>
 
         {/* Filters & Sort Bar */}
@@ -178,19 +190,31 @@ const CategoryPage = () => {
               onClick={() => setShowFilters(!showFilters)}
               className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                />
               </svg>
               Filters
             </button>
-            <span className="text-sm text-gray-600">{products.length} Products</span>
+            <span className="text-sm text-gray-600">
+              {products.length} Products
+            </span>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-600">Sort by:</span>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={e => setSortBy(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#81634b]"
             >
               <option value="popular">Popularity</option>
@@ -211,37 +235,61 @@ const CategoryPage = () => {
                   <h3 className="font-semibold text-lg">Filters</h3>
                   <button
                     className="text-sm text-[#81634b] hover:underline"
-                    onClick={() => setSelectedFilters({ price: [], category: [], color: [], material: [] })}
+                    onClick={() =>
+                      setSelectedFilters({
+                        price: [],
+                        category: [],
+                        color: [],
+                        material: [],
+                      })
+                    }
                   >
                     Clear All
                   </button>
                 </div>
 
                 {Object.entries(filters).map(([filterKey, options]) => (
-                  <div key={filterKey} className="mb-6 pb-6 border-b border-gray-200 last:border-b-0">
-                    <h4 className="font-medium text-gray-900 mb-3 capitalize">{filterKey}</h4>
+                  <div
+                    key={filterKey}
+                    className="mb-6 pb-6 border-b border-gray-200 last:border-b-0"
+                  >
+                    <h4 className="font-medium text-gray-900 mb-3 capitalize">
+                      {filterKey}
+                    </h4>
                     <div className="space-y-2">
-                      {options.map((option) => (
-                        <label key={option} className="flex items-center cursor-pointer">
+                      {options.map(option => (
+                        <label
+                          key={option}
+                          className="flex items-center cursor-pointer"
+                        >
                           <input
                             type="checkbox"
                             className="w-4 h-4 text-[#81634b] border-gray-300 rounded focus:ring-[#81634b]"
-                            checked={selectedFilters[filterKey].includes(option)}
-                            onChange={(e) => {
+                            checked={selectedFilters[filterKey].includes(
+                              option
+                            )}
+                            onChange={e => {
                               if (e.target.checked) {
                                 setSelectedFilters({
                                   ...selectedFilters,
-                                  [filterKey]: [...selectedFilters[filterKey], option]
+                                  [filterKey]: [
+                                    ...selectedFilters[filterKey],
+                                    option,
+                                  ],
                                 });
                               } else {
                                 setSelectedFilters({
                                   ...selectedFilters,
-                                  [filterKey]: selectedFilters[filterKey].filter(item => item !== option)
+                                  [filterKey]: selectedFilters[
+                                    filterKey
+                                  ].filter(item => item !== option),
                                 });
                               }
                             }}
                           />
-                          <span className="ml-2 text-sm text-gray-700">{option}</span>
+                          <span className="ml-2 text-sm text-gray-700">
+                            {option}
+                          </span>
                         </label>
                       ))}
                     </div>
@@ -254,7 +302,7 @@ const CategoryPage = () => {
           {/* Products Grid */}
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {products.map((product) => (
+              {products.map(product => (
                 <div
                   key={product.id}
                   className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden group flex flex-col"
@@ -276,8 +324,18 @@ const CategoryPage = () => {
                       </div>
                     )}
                     <button className="absolute bottom-3 right-3 bg-white p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
-                      <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      <svg
+                        className="w-5 h-5 text-gray-700"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -293,7 +351,9 @@ const CategoryPage = () => {
                           <svg
                             key={i}
                             className={`w-4 h-4 ${
-                              i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300 fill-current'
+                              i < Math.floor(product.rating)
+                                ? 'text-yellow-400 fill-current'
+                                : 'text-gray-300 fill-current'
                             }`}
                             viewBox="0 0 20 20"
                           >
@@ -301,13 +361,19 @@ const CategoryPage = () => {
                           </svg>
                         ))}
                       </div>
-                      <span className="text-xs text-gray-500">({product.reviews})</span>
+                      <span className="text-xs text-gray-500">
+                        ({product.reviews})
+                      </span>
                     </div>
 
                     <div className="flex items-baseline gap-2 mb-3">
-                      <span className="text-lg font-bold text-gray-900">₹{product.price.toLocaleString()}</span>
+                      <span className="text-lg font-bold text-gray-900">
+                        ₹{product.price.toLocaleString()}
+                      </span>
                       {product.originalPrice && (
-                        <span className="text-sm text-gray-500 line-through">₹{product.originalPrice.toLocaleString()}</span>
+                        <span className="text-sm text-gray-500 line-through">
+                          ₹{product.originalPrice.toLocaleString()}
+                        </span>
                       )}
                     </div>
 

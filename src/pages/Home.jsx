@@ -26,10 +26,10 @@ const Home = () => {
     '/assets/w23-02-sofatypes.webp',
     '/assets/50bce133-677a-4aa5-b89d-e4b880412217.webp',
     '/assets/4c44a41a-409c-4471-b806-fcc32794aadb.webp',
-    '/assets/4015dcfa-a65f-4ea6-8754-be07c8927c3c.webp'
+    '/assets/4015dcfa-a65f-4ea6-8754-be07c8927c3c.webp',
   ];
 
-  const assetAt = (i) => assetImages[i % assetImages.length];
+  const assetAt = i => assetImages[i % assetImages.length];
 
   const categories = [
     'Living Room',
@@ -45,172 +45,493 @@ const Home = () => {
   const categoryProducts = {
     'Living Room': [
       // Updated Living Room images (12)
-      { name: 'Sofas', image: '/assets/living room-13.jpeg', link: '/category/sofas' },
-      { name: 'Centre Tables', image: '/assets/living room-9.jpeg', link: '/category/centre-tables' },
-      { name: 'Sofa Chairs', image: '/assets/living room-7.jpeg', link: '/category/sofa-chairs' },
-      { name: 'Cabinets and Sideboards', image: '/assets/living room-10.jpeg', link: '/category/cabinets-sideboards' },
-      { name: 'Wall Art and Paintings', image: '/assets/living room-11.jpeg', link: '/category/wall-art-paintings' },
-      { name: 'Hanging Lights', image: '/assets/living room-12.jpeg', link: '/category/hanging-lights' },
-      { name: 'Mandirs', image: '/assets/living room-6.jpeg', link: '/category/mandirs' },
-      { name: 'Chairs', image: '/assets/living room-5.jpeg', link: '/category/chairs' },
-      { name: 'Recliners', image: '/assets/living room-4.jpeg', link: '/category/recliners' },
-      { name: 'TV & Media Units', image: '/assets/living room-3.jpeg', link: '/category/tv-media-units' },
-      { name: 'Carpets', image: '/assets/living room-2.jpeg', link: '/category/carpets' },
-      { name: 'Curtains', image: '/assets/living room-1.jpeg', link: '/category/curtains' },
+      {
+        name: 'Sofas',
+        image: '/assets/living room-13.jpeg',
+        link: '/category/sofas',
+      },
+      {
+        name: 'Centre Tables',
+        image: '/assets/living room-9.jpeg',
+        link: '/category/centre-tables',
+      },
+      {
+        name: 'Sofa Chairs',
+        image: '/assets/living room-7.jpeg',
+        link: '/category/sofa-chairs',
+      },
+      {
+        name: 'Cabinets and Sideboards',
+        image: '/assets/living room-10.jpeg',
+        link: '/category/cabinets-sideboards',
+      },
+      {
+        name: 'Wall Art and Paintings',
+        image: '/assets/living room-11.jpeg',
+        link: '/category/wall-art-paintings',
+      },
+      {
+        name: 'Hanging Lights',
+        image: '/assets/living room-12.jpeg',
+        link: '/category/hanging-lights',
+      },
+      {
+        name: 'Mandirs',
+        image: '/assets/living room-6.jpeg',
+        link: '/category/mandirs',
+      },
+      {
+        name: 'Chairs',
+        image: '/assets/living room-5.jpeg',
+        link: '/category/chairs',
+      },
+      {
+        name: 'Recliners',
+        image: '/assets/living room-4.jpeg',
+        link: '/category/recliners',
+      },
+      {
+        name: 'TV & Media Units',
+        image: '/assets/living room-3.jpeg',
+        link: '/category/tv-media-units',
+      },
+      {
+        name: 'Carpets',
+        image: '/assets/living room-2.jpeg',
+        link: '/category/carpets',
+      },
+      {
+        name: 'Curtains',
+        image: '/assets/living room-1.jpeg',
+        link: '/category/curtains',
+      },
     ],
     'Bed Room': [
       // Beds (2 images)
-      { name: 'Beds', image: '/assets/fff07b90-346e-4729-b36a-04e207ca3d25.webp', link: '/category/beds' },
-      { name: 'Beds', image: '/assets/fbb3fd53-08af-46b3-8081-bc938329ea33.webp', link: '/category/beds' },
+      {
+        name: 'Beds',
+        image: '/assets/fff07b90-346e-4729-b36a-04e207ca3d25.webp',
+        link: '/category/beds',
+      },
+      {
+        name: 'Beds',
+        image: '/assets/fbb3fd53-08af-46b3-8081-bc938329ea33.webp',
+        link: '/category/beds',
+      },
       // Wardrobes (2 images)
-      { name: 'Wardrobes', image: '/assets/db72241d-5c2a-470d-8286-2129571c4f57.webp', link: '/category/wardrobes' },
-      { name: 'Wardrobes', image: '/assets/c0f15e36-196d-48e0-ba80-8df0d7edfe20.webp', link: '/category/wardrobes' },
+      {
+        name: 'Wardrobes',
+        image: '/assets/db72241d-5c2a-470d-8286-2129571c4f57.webp',
+        link: '/category/wardrobes',
+      },
+      {
+        name: 'Wardrobes',
+        image: '/assets/c0f15e36-196d-48e0-ba80-8df0d7edfe20.webp',
+        link: '/category/wardrobes',
+      },
       // Nightstands (2 images)
-      { name: 'Nightstands', image: '/assets/b0be476d-023f-4cd8-a4a8-331dc770cbbc.webp', link: '/category/nightstands' },
-      { name: 'Nightstands', image: '/assets/624b701d-af35-4f54-986d-b5742b7e9279.webp', link: '/category/nightstands' },
+      {
+        name: 'Nightstands',
+        image: '/assets/b0be476d-023f-4cd8-a4a8-331dc770cbbc.webp',
+        link: '/category/nightstands',
+      },
+      {
+        name: 'Nightstands',
+        image: '/assets/624b701d-af35-4f54-986d-b5742b7e9279.webp',
+        link: '/category/nightstands',
+      },
       // Dressing Tables (2 images)
-      { name: 'Dressing Tables', image: '/assets/144eb8f8-4856-4c18-a6b3-4e9a6b2eea96.webp', link: '/category/dressing-tables' },
-      { name: 'Dressing Tables', image: '/assets/60dce995-2d0c-4b5c-b702-976c399b7db3.webp', link: '/category/dressing-tables' },
+      {
+        name: 'Dressing Tables',
+        image: '/assets/144eb8f8-4856-4c18-a6b3-4e9a6b2eea96.webp',
+        link: '/category/dressing-tables',
+      },
+      {
+        name: 'Dressing Tables',
+        image: '/assets/60dce995-2d0c-4b5c-b702-976c399b7db3.webp',
+        link: '/category/dressing-tables',
+      },
       // Mattresses (2 images)
-      { name: 'Mattresses', image: '/assets/624b701d-af35-4f54-986d-b5742b7e9279.webp', link: '/category/mattresses' },
-      { name: 'Mattresses', image: '/assets/144eb8f8-4856-4c18-a6b3-4e9a6b2eea96.webp', link: '/category/mattresses' },
+      {
+        name: 'Mattresses',
+        image: '/assets/624b701d-af35-4f54-986d-b5742b7e9279.webp',
+        link: '/category/mattresses',
+      },
+      {
+        name: 'Mattresses',
+        image: '/assets/144eb8f8-4856-4c18-a6b3-4e9a6b2eea96.webp',
+        link: '/category/mattresses',
+      },
       // Bedside Lamps (2 images)
-      { name: 'Bedside Lamps', image: '/assets/50bce133-677a-4aa5-b89d-e4b880412217.webp', link: '/category/bedside-lamps' },
-      { name: 'Bedside Lamps', image: '/assets/6a2a16cb-bdc1-4bb9-a6a9-92cbf27dfd00.webp', link: '/category/bedside-lamps' },
+      {
+        name: 'Bedside Lamps',
+        image: '/assets/50bce133-677a-4aa5-b89d-e4b880412217.webp',
+        link: '/category/bedside-lamps',
+      },
+      {
+        name: 'Bedside Lamps',
+        image: '/assets/6a2a16cb-bdc1-4bb9-a6a9-92cbf27dfd00.webp',
+        link: '/category/bedside-lamps',
+      },
     ],
     'Dining Room': [
       // Dining Tables (2)
-      { name: 'Dining Tables', image: '/assets/dinig table-11.jpeg', link: '/category/dining-tables' },
-      { name: 'Dining Tables', image: '/assets/dining table-1.jpeg', link: '/category/dining-tables' },
+      {
+        name: 'Dining Tables',
+        image: '/assets/dinig table-11.jpeg',
+        link: '/category/dining-tables',
+      },
+      {
+        name: 'Dining Tables',
+        image: '/assets/dining table-1.jpeg',
+        link: '/category/dining-tables',
+      },
       // Dining Chairs (2) using provided and related asset
-      { name: 'Dining Chairs', image: '/assets/8eaa5bc1-f088-4ae6-ac16-3cfcbee88e1b.webp', link: '/category/dining-chairs' },
-      { name: 'Dining Chairs', image: '/assets/dining table-4.jpeg', link: '/category/dining-chairs' },
+      {
+        name: 'Dining Chairs',
+        image: '/assets/8eaa5bc1-f088-4ae6-ac16-3cfcbee88e1b.webp',
+        link: '/category/dining-chairs',
+      },
+      {
+        name: 'Dining Chairs',
+        image: '/assets/dining table-4.jpeg',
+        link: '/category/dining-chairs',
+      },
       // Dining Sets (2)
-      { name: 'Dining Sets', image: '/assets/dining table-4.jpeg', link: '/category/dining-sets' },
-      { name: 'Dining Sets', image: '/assets/dining table-15.jpeg', link: '/category/dining-sets' },
+      {
+        name: 'Dining Sets',
+        image: '/assets/dining table-4.jpeg',
+        link: '/category/dining-sets',
+      },
+      {
+        name: 'Dining Sets',
+        image: '/assets/dining table-15.jpeg',
+        link: '/category/dining-sets',
+      },
       // Buffets & Sideboards (2) - fallback to remaining dining images
-      { name: 'Buffets & Sideboards', image: '/assets/dining table-12.jpeg', link: '/category/buffets' },
-      { name: 'Buffets & Sideboards', image: '/assets/dining table-13.jpeg', link: '/category/buffets' },
+      {
+        name: 'Buffets & Sideboards',
+        image: '/assets/dining table-12.jpeg',
+        link: '/category/buffets',
+      },
+      {
+        name: 'Buffets & Sideboards',
+        image: '/assets/dining table-13.jpeg',
+        link: '/category/buffets',
+      },
       // Bar Cabinets (2)
-      { name: 'Bar Cabinets', image: '/assets/dining table-14.jpeg', link: '/category/bar-cabinets' },
-      { name: 'Bar Cabinets', image: '/assets/dining table-10.jpeg', link: '/category/bar-cabinets' },
+      {
+        name: 'Bar Cabinets',
+        image: '/assets/dining table-14.jpeg',
+        link: '/category/bar-cabinets',
+      },
+      {
+        name: 'Bar Cabinets',
+        image: '/assets/dining table-10.jpeg',
+        link: '/category/bar-cabinets',
+      },
       // Crockery Units (2)
-      { name: 'Crockery Units', image: '/assets/Dining Table-2.jpeg', link: '/category/crockery-units' },
-      { name: 'Crockery Units', image: '/assets/Dining Table-3.jpeg', link: '/category/crockery-units' },
+      {
+        name: 'Crockery Units',
+        image: '/assets/Dining Table-2.jpeg',
+        link: '/category/crockery-units',
+      },
+      {
+        name: 'Crockery Units',
+        image: '/assets/Dining Table-3.jpeg',
+        link: '/category/crockery-units',
+      },
     ],
     'Study Room': [
       // Study Tables (2)
-      { name: 'Study Tables', image: '/assets/study room-1.jpeg', link: '/category/study-tables' },
-      { name: 'Study Tables', image: '/assets/study room-2.jpeg', link: '/category/study-tables' },
+      {
+        name: 'Study Tables',
+        image: '/assets/study room-1.jpeg',
+        link: '/category/study-tables',
+      },
+      {
+        name: 'Study Tables',
+        image: '/assets/study room-2.jpeg',
+        link: '/category/study-tables',
+      },
       // Office Chairs (2)
-      { name: 'Office Chairs', image: '/assets/study room-3.jpeg', link: '/category/office-chairs' },
-      { name: 'Office Chairs', image: '/assets/study room-7.jpeg', link: '/category/office-chairs' },
+      {
+        name: 'Office Chairs',
+        image: '/assets/study room-3.jpeg',
+        link: '/category/office-chairs',
+      },
+      {
+        name: 'Office Chairs',
+        image: '/assets/study room-7.jpeg',
+        link: '/category/office-chairs',
+      },
       // Bookshelves (2)
-      { name: 'Bookshelves', image: '/assets/study room-6.jpeg', link: '/category/bookshelves' },
-      { name: 'Bookshelves', image: '/assets/study room-2.jpeg', link: '/category/bookshelves' },
+      {
+        name: 'Bookshelves',
+        image: '/assets/study room-6.jpeg',
+        link: '/category/bookshelves',
+      },
+      {
+        name: 'Bookshelves',
+        image: '/assets/study room-2.jpeg',
+        link: '/category/bookshelves',
+      },
       // Study Lamps (2)
-      { name: 'Study Lamps', image: '/assets/study room-5.jpeg', link: '/category/study-lamps' },
-      { name: 'Study Lamps', image: '/assets/study room-10.jpeg', link: '/category/study-lamps' },
+      {
+        name: 'Study Lamps',
+        image: '/assets/study room-5.jpeg',
+        link: '/category/study-lamps',
+      },
+      {
+        name: 'Study Lamps',
+        image: '/assets/study room-10.jpeg',
+        link: '/category/study-lamps',
+      },
       // File Cabinets (2)
-      { name: 'File Cabinets', image: '/assets/Study Room-9.jpeg', link: '/category/file-cabinets' },
-      { name: 'File Cabinets', image: '/assets/study room-8.jpeg', link: '/category/file-cabinets' },
+      {
+        name: 'File Cabinets',
+        image: '/assets/Study Room-9.jpeg',
+        link: '/category/file-cabinets',
+      },
+      {
+        name: 'File Cabinets',
+        image: '/assets/study room-8.jpeg',
+        link: '/category/file-cabinets',
+      },
     ],
-    'Sofa': [
+    Sofa: [
       // 3-Seater Sofas (2)
-      { name: '3-Seater Sofas', image: '/assets/w23-06-size-3-seater.webp', link: '/category/3-seater-sofas' },
-      { name: '3-Seater Sofas', image: '/assets/undefined (13).jpeg', link: '/category/3-seater-sofas' },
+      {
+        name: '3-Seater Sofas',
+        image: '/assets/w23-06-size-3-seater.webp',
+        link: '/category/3-seater-sofas',
+      },
+      {
+        name: '3-Seater Sofas',
+        image: '/assets/undefined (13).jpeg',
+        link: '/category/3-seater-sofas',
+      },
       // 2-Seater Sofas (2)
-      { name: '2-Seater Sofas', image: '/assets/w23-07-size-2-seater.webp', link: '/category/2-seater-sofas' },
-      { name: '2-Seater Sofas', image: '/assets/w23-02-sofatypes.webp', link: '/category/2-seater-sofas' },
+      {
+        name: '2-Seater Sofas',
+        image: '/assets/w23-07-size-2-seater.webp',
+        link: '/category/2-seater-sofas',
+      },
+      {
+        name: '2-Seater Sofas',
+        image: '/assets/w23-02-sofatypes.webp',
+        link: '/category/2-seater-sofas',
+      },
       // 1-Seater Sofas (2)
-      { name: '1-Seater Sofas', image: '/assets/w23-08-size-1-seater.webp', link: '/category/1-seater-sofas' },
-      { name: '1-Seater Sofas', image: '/assets/w23-03-sofatypes-1.webp', link: '/category/1-seater-sofas' },
+      {
+        name: '1-Seater Sofas',
+        image: '/assets/w23-08-size-1-seater.webp',
+        link: '/category/1-seater-sofas',
+      },
+      {
+        name: '1-Seater Sofas',
+        image: '/assets/w23-03-sofatypes-1.webp',
+        link: '/category/1-seater-sofas',
+      },
       // L-Shaped Sofas (2)
-      { name: 'L-Shaped Sofas', image: '/assets/w23-05-sofatypes-3.webp', link: '/category/l-shaped-sofas' },
-      { name: 'L-Shaped Sofas', image: '/assets/w23-04-sofatypes-2.webp', link: '/category/l-shaped-sofas' },
+      {
+        name: 'L-Shaped Sofas',
+        image: '/assets/w23-05-sofatypes-3.webp',
+        link: '/category/l-shaped-sofas',
+      },
+      {
+        name: 'L-Shaped Sofas',
+        image: '/assets/w23-04-sofatypes-2.webp',
+        link: '/category/l-shaped-sofas',
+      },
       // Modern Sofas (2)
-      { name: 'Modern Sofas', image: '/assets/w23-03-sofatypes-1.webp', link: '/category/modern-sofas' },
-      { name: 'Modern Sofas', image: '/assets/undefined (7).jpeg', link: '/category/modern-sofas' },
+      {
+        name: 'Modern Sofas',
+        image: '/assets/w23-03-sofatypes-1.webp',
+        link: '/category/modern-sofas',
+      },
+      {
+        name: 'Modern Sofas',
+        image: '/assets/undefined (7).jpeg',
+        link: '/category/modern-sofas',
+      },
       // Designer Sofas (2)
-      { name: 'Designer Sofas', image: '/assets/sofa veludo moderno - Pesquisa Google.jpeg', link: '/category/designer-sofas' },
-      { name: 'Designer Sofas', image: '/assets/img1.jpg', link: '/category/designer-sofas' },
+      {
+        name: 'Designer Sofas',
+        image: '/assets/sofa veludo moderno - Pesquisa Google.jpeg',
+        link: '/category/designer-sofas',
+      },
+      {
+        name: 'Designer Sofas',
+        image: '/assets/img1.jpg',
+        link: '/category/designer-sofas',
+      },
       // Luxury Sofas (2)
-      { name: 'Luxury Sofas', image: '/assets/Everything You Need to Know About Benjamin Moore….jpeg', link: '/category/luxury-sofas' },
-      { name: 'Luxury Sofas', image: '/assets/41 Living Room Wall Colors To Elevate Your Home… (1).jpeg', link: '/category/luxury-sofas' },
+      {
+        name: 'Luxury Sofas',
+        image: '/assets/Everything You Need to Know About Benjamin Moore….jpeg',
+        link: '/category/luxury-sofas',
+      },
+      {
+        name: 'Luxury Sofas',
+        image:
+          '/assets/41 Living Room Wall Colors To Elevate Your Home… (1).jpeg',
+        link: '/category/luxury-sofas',
+      },
     ],
     'Office Room': [
       // Executive Chairs (2)
-      { name: 'Executive Chairs', image: '/assets/8246b57c-175a-428f-9206-577466453eda.webp', link: '/category/executive-chairs' },
-      { name: 'Executive Chairs', image: '/assets/Armchair with four star aluminum swivel central….jpeg', link: '/category/executive-chairs' },
+      {
+        name: 'Executive Chairs',
+        image: '/assets/8246b57c-175a-428f-9206-577466453eda.webp',
+        link: '/category/executive-chairs',
+      },
+      {
+        name: 'Executive Chairs',
+        image: '/assets/Armchair with four star aluminum swivel central….jpeg',
+        link: '/category/executive-chairs',
+      },
       // Manager Chairs (2)
-      { name: 'Manager Chairs', image: '/assets/HUIQC Boss Chair Managerial Executive….jpeg', link: '/category/manager-chairs' },
-      { name: 'Manager Chairs', image: '/assets/Qué incluye Estilo_ moderno Tipo de producto….jpeg', link: '/category/manager-chairs' },
+      {
+        name: 'Manager Chairs',
+        image: '/assets/HUIQC Boss Chair Managerial Executive….jpeg',
+        link: '/category/manager-chairs',
+      },
+      {
+        name: 'Manager Chairs',
+        image: '/assets/Qué incluye Estilo_ moderno Tipo de producto….jpeg',
+        link: '/category/manager-chairs',
+      },
       // Office Desks (2)
-      { name: 'Office Desks', image: '/assets/undefined (8).jpeg', link: '/category/office-desks' },
-      { name: 'Office Desks', image: '/assets/undefined (9).jpeg', link: '/category/office-desks' },
+      {
+        name: 'Office Desks',
+        image: '/assets/undefined (8).jpeg',
+        link: '/category/office-desks',
+      },
+      {
+        name: 'Office Desks',
+        image: '/assets/undefined (9).jpeg',
+        link: '/category/office-desks',
+      },
       // Ergonomic Chairs (2)
-      { name: 'Ergonomic Chairs', image: '/assets/Upgrade your workspace with the best ergonomic….jpeg', link: '/category/ergonomic-chairs' },
-      { name: 'Ergonomic Chairs', image: '/assets/With ergonomic design and premium materials, it….jpeg', link: '/category/ergonomic-chairs' },
+      {
+        name: 'Ergonomic Chairs',
+        image: '/assets/Upgrade your workspace with the best ergonomic….jpeg',
+        link: '/category/ergonomic-chairs',
+      },
+      {
+        name: 'Ergonomic Chairs',
+        image: '/assets/With ergonomic design and premium materials, it….jpeg',
+        link: '/category/ergonomic-chairs',
+      },
     ],
     'Luxury Furniture': [
       // Luxury Sofas (2)
-      { name: 'Luxury Sofas', image: '/assets/luxury chaoir-8.jpeg', link: '/category/luxury-sofas' },
-      { name: 'Luxury Sofas', image: '/assets/Beatiful chair 😍.jpeg', link: '/category/luxury-sofas' },
+      {
+        name: 'Luxury Sofas',
+        image: '/assets/luxury chaoir-8.jpeg',
+        link: '/category/luxury-sofas',
+      },
+      {
+        name: 'Luxury Sofas',
+        image: '/assets/Beatiful chair 😍.jpeg',
+        link: '/category/luxury-sofas',
+      },
       // Luxury Beds (2)
-      { name: 'Luxury Beds', image: '/assets/luxury-1.jpeg', link: '/category/luxury-beds' },
-      { name: 'Luxury Beds', image: '/assets/luxury-2.jpeg', link: '/category/luxury-beds' },
+      {
+        name: 'Luxury Beds',
+        image: '/assets/luxury-1.jpeg',
+        link: '/category/luxury-beds',
+      },
+      {
+        name: 'Luxury Beds',
+        image: '/assets/luxury-2.jpeg',
+        link: '/category/luxury-beds',
+      },
       // Luxury Dining Sets (2)
-      { name: 'Luxury Dining Sets', image: '/assets/luxury-3.jpeg', link: '/category/luxury-dining' },
-      { name: 'Luxury Dining Sets', image: '/assets/luxury-4.jpeg', link: '/category/luxury-dining' },
+      {
+        name: 'Luxury Dining Sets',
+        image: '/assets/luxury-3.jpeg',
+        link: '/category/luxury-dining',
+      },
+      {
+        name: 'Luxury Dining Sets',
+        image: '/assets/luxury-4.jpeg',
+        link: '/category/luxury-dining',
+      },
       // Designer Chairs (2)
-      { name: 'Designer Chairs', image: '/assets/luxury-5.jpeg', link: '/category/designer-chairs' },
-      { name: 'Designer Chairs', image: '/assets/luxury-6.jpeg', link: '/category/designer-chairs' },
+      {
+        name: 'Designer Chairs',
+        image: '/assets/luxury-5.jpeg',
+        link: '/category/designer-chairs',
+      },
+      {
+        name: 'Designer Chairs',
+        image: '/assets/luxury-6.jpeg',
+        link: '/category/designer-chairs',
+      },
       // Premium Lighting (2)
-      { name: 'Premium Lighting', image: '/assets/luxury-7.jpeg', link: '/category/premium-lighting' },
-      { name: 'Premium Lighting', image: '/assets/luxury-9.jpeg', link: '/category/premium-lighting' },
+      {
+        name: 'Premium Lighting',
+        image: '/assets/luxury-7.jpeg',
+        link: '/category/premium-lighting',
+      },
+      {
+        name: 'Premium Lighting',
+        image: '/assets/luxury-9.jpeg',
+        link: '/category/premium-lighting',
+      },
       // Luxury Decor (2)
-      { name: 'Luxury Decor', image: '/assets/luxury-10.jpeg', link: '/category/luxury-decor' },
-      { name: 'Luxury Decor', image: '/assets/luxury-11.jpeg', link: '/category/luxury-decor' },
+      {
+        name: 'Luxury Decor',
+        image: '/assets/luxury-10.jpeg',
+        link: '/category/luxury-decor',
+      },
+      {
+        name: 'Luxury Decor',
+        image: '/assets/luxury-11.jpeg',
+        link: '/category/luxury-decor',
+      },
     ],
   };
 
   return (
-  <div className="min-h-screen bg-[#f5f5f3]">
+    <div className="min-h-screen bg-[#f5f5f3]">
       {/* Hero Section */}
-  <div
+      <div
         className="relative w-full h-screen flex items-center"
         style={{
           backgroundImage: "url('/assets/background image.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          backgroundRepeat: 'no-repeat',
         }}
       >
         <div className="absolute inset-0 bg-black/35"></div>
         <div className="relative w-full flex items-center">
           <div className="container mx-auto px-2 sm:px-4">
             <div className="max-w-2xl p-4 rounded-lg">
-              <DynamicContent 
+              <DynamicContent
                 page="home"
                 section="hero"
                 defaultContent={{
-                  text: "Transform Your\nLiving Space",
+                  text: 'Transform Your\nLiving Space',
                   styles: {
-                    color: "#ffffff",
-                    fontSize: "4.5rem",
-                    fontWeight: "300"
-                  }
+                    color: '#ffffff',
+                    fontSize: '4.5rem',
+                    fontWeight: '300',
+                  },
                 }}
               />
-              <DynamicContent 
+              <DynamicContent
                 page="home"
                 section="hero-subtitle"
                 defaultContent={{
-                  text: "Discover premium furniture and home décor that reflects your style",
+                  text: 'Discover premium furniture and home décor that reflects your style',
                   styles: {
-                    color: "rgba(255, 255, 255, 0.9)",
-                    fontSize: "1.25rem"
-                  }
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    fontSize: '1.25rem',
+                  },
                 }}
               />
               <div className="flex flex-col sm:flex-row gap-4 sm:space-x-4">
@@ -239,32 +560,123 @@ const Home = () => {
             {/* Fast & Free Shipping */}
             <div className="flex flex-col items-center text-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-md hover:scale-105 cursor-pointer">
               <div className="mb-2">
-                <svg className="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 24H36V40H8V24Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M36 28H44L52 36V40H36V28Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <circle cx="16" cy="44" r="4" stroke="currentColor" strokeWidth="2"/>
-                  <circle cx="44" cy="44" r="4" stroke="currentColor" strokeWidth="2"/>
-                  <path d="M12 24V20H4V44H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M40 44H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <path d="M48 44H52V36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M28 20L32 16L36 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M32 16V24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  className="w-12 h-12"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 24H36V40H8V24Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M36 28H44L52 36V40H36V28Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <circle
+                    cx="16"
+                    cy="44"
+                    r="4"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <circle
+                    cx="44"
+                    cy="44"
+                    r="4"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M12 24V20H4V44H8"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M40 44H20"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M48 44H52V36"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M28 20L32 16L36 20"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M32 16V24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-1">Fast & Free Shipping</h3>
+              <h3 className="text-lg font-semibold mb-1">
+                Fast & Free Shipping
+              </h3>
               <p className="text-sm text-gray-600">Doorstep Delivery</p>
             </div>
 
             {/* Customer Support */}
             <div className="flex flex-col items-center text-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-md hover:scale-105 cursor-pointer">
               <div className="mb-2">
-                <svg className="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="32" cy="32" r="20" stroke="currentColor" strokeWidth="2"/>
-                  <path d="M20 28C20 28 24 24 32 24C40 24 44 28 44 28" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <path d="M20 36C20 36 24 40 32 40C40 40 44 36 44 36" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="32" cy="32" r="3" fill="currentColor"/>
-                  <path d="M16 20C16 20 14 18 14 14C14 10 16 8 16 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <path d="M48 20C48 20 50 18 50 14C50 10 48 8 48 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <svg
+                  className="w-12 h-12"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="32"
+                    cy="32"
+                    r="20"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M20 28C20 28 24 24 32 24C40 24 44 28 44 28"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M20 36C20 36 24 40 32 40C40 40 44 36 44 36"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <circle cx="32" cy="32" r="3" fill="currentColor" />
+                  <path
+                    d="M16 20C16 20 14 18 14 14C14 10 16 8 16 8"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M48 20C48 20 50 18 50 14C50 10 48 8 48 8"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </div>
               <h3 className="text-lg font-semibold mb-1">Customer Support</h3>
@@ -274,29 +686,116 @@ const Home = () => {
             {/* Hassle-Free Returns */}
             <div className="flex flex-col items-center text-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-md hover:scale-105 cursor-pointer">
               <div className="mb-2">
-                <svg className="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M16 24H40V40H16V24Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M40 28H48L52 32V40H40V28Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <circle cx="24" cy="44" r="4" stroke="currentColor" strokeWidth="2"/>
-                  <circle cx="44" cy="44" r="4" stroke="currentColor" strokeWidth="2"/>
-                  <path d="M12 24V20H8V44H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M28 44H40" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <path d="M48 44H52V32" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M32 16L28 20L32 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M28 20H36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  className="w-12 h-12"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16 24H40V40H16V24Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M40 28H48L52 32V40H40V28Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <circle
+                    cx="24"
+                    cy="44"
+                    r="4"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <circle
+                    cx="44"
+                    cy="44"
+                    r="4"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M12 24V20H8V44H16"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M28 44H40"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M48 44H52V32"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M32 16L28 20L32 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M28 20H36"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-1">Hassle-Free Returns</h3>
+              <h3 className="text-lg font-semibold mb-1">
+                Hassle-Free Returns
+              </h3>
               <p className="text-sm text-gray-600">7 Days Return Period</p>
             </div>
 
             {/* Secure Transaction */}
             <div className="flex flex-col items-center text-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-md hover:scale-105 cursor-pointer">
               <div className="mb-2">
-                <svg className="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M32 8L12 16V28C12 40 20 50 32 56C44 50 52 40 52 28V16L32 8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M32 20V32L38 38" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <text x="32" y="48" textAnchor="middle" fontSize="8" fill="currentColor" fontFamily="Arial, sans-serif" fontWeight="bold">Razorpay</text>
+                <svg
+                  className="w-12 h-12"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M32 8L12 16V28C12 40 20 50 32 56C44 50 52 40 52 28V16L32 8Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M32 20V32L38 38"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <text
+                    x="32"
+                    y="48"
+                    textAnchor="middle"
+                    fontSize="8"
+                    fill="currentColor"
+                    fontFamily="Arial, sans-serif"
+                    fontWeight="bold"
+                  >
+                    Razorpay
+                  </text>
                 </svg>
               </div>
               <h3 className="text-lg font-semibold mb-1">Secure Transaction</h3>
@@ -379,8 +878,8 @@ const Home = () => {
         </div>
       </div>
 
-  <div className="bg-white py-8 md:py-12">
-  <div className="container mx-auto text-center px-2 sm:px-4">
+      <div className="bg-white py-8 md:py-12">
+        <div className="container mx-auto text-center px-2 sm:px-4">
           {/* Title */}
           <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#81634b] mb-6 md:mb-8">
             Shop All Things Home
@@ -410,17 +909,16 @@ const Home = () => {
           {/* Product Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-1 sm:px-4">
             {categoryProducts[activeCategory]?.map((product, index) => (
-              <Link
-                key={index}
-                to={product.link}
-                className="group"
-              >
-                <div className="bg-white border border-gray-200 aspect-square relative overflow-hidden hover:shadow-lg transition-all duration-300" style={{ borderRadius: '10px' }}>
+              <Link key={index} to={product.link} className="group">
+                <div
+                  className="bg-white border border-gray-200 aspect-square relative overflow-hidden hover:shadow-lg transition-all duration-300"
+                  style={{ borderRadius: '10px' }}
+                >
                   <img
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    onError={(e) => {
+                    onError={e => {
                       e.target.src = placeholderImage;
                     }}
                   />
@@ -435,9 +933,11 @@ const Home = () => {
       </div>
 
       {/* Mega Festive Deals */}
-  <div className="container mx-auto px-2 sm:px-4 py-10 md:py-16">
-  <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">Mega Festive Deals</h2>
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+      <div className="container mx-auto px-2 sm:px-4 py-10 md:py-16">
+        <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">
+          Mega Festive Deals
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
           {[
             {
               id: 'deal-1',
@@ -485,7 +985,11 @@ const Home = () => {
               className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
             >
               <img
-                src={(product.image && product.image !== placeholderImage) ? product.image : assetAt(index)}
+                src={
+                  product.image && product.image !== placeholderImage
+                    ? product.image
+                    : assetAt(index)
+                }
                 alt={product.name}
                 className="w-full h-48 object-cover rounded mb-4"
               />
@@ -500,7 +1004,7 @@ const Home = () => {
                 </span>
               </div>
               <div className="flex gap-2">
-                <button 
+                <button
                   onClick={() => {
                     addToCart(product);
                     toast.success('Added to cart!');
@@ -516,7 +1020,7 @@ const Home = () => {
             </div>
           ))}
         </div>
-  <div className="text-center mt-6 md:mt-8">
+        <div className="text-center mt-6 md:mt-8">
           <Link
             to="/deals"
             className="inline-block px-6 py-3 bg-[#81634b] text-white rounded-lg hover:bg-[#6b5340] transition-colors"
@@ -527,43 +1031,50 @@ const Home = () => {
       </div>
 
       {/* Best Seller Categories */}
-  <div className="bg-gray-50 py-10 md:py-16">
-  <div className="container mx-auto px-2 sm:px-4">
+      <div className="bg-gray-50 py-10 md:py-16">
+        <div className="container mx-auto px-2 sm:px-4">
           <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">
             Explore Best Seller Categories
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-            {['Furniture', 'Mattresses', 'Home Goods'].map((category, index) => (
-              <div
-                key={category}
-                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="w-full bg-white" style={{aspectRatio: '16/9'}}>
-                  <img
-                    src={assetAt(index)}
-                    alt={category}
-                    className="w-full h-full object-cover md:object-contain"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">{category}</h3>
-                  <Link
-                    to={`/category/${category.toLowerCase()}`}
-                    className="inline-block bg-[#81634b] text-white px-6 py-2 rounded-md hover:bg-[#6b5340] transition-colors font-medium"
+            {['Furniture', 'Mattresses', 'Home Goods'].map(
+              (category, index) => (
+                <div
+                  key={category}
+                  className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div
+                    className="w-full bg-white"
+                    style={{ aspectRatio: '16/9' }}
                   >
-                    Buy Now
-                  </Link>
+                    <img
+                      src={assetAt(index)}
+                      alt={category}
+                      className="w-full h-full object-cover md:object-contain"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-xl font-semibold mb-2">{category}</h3>
+                    <Link
+                      to={`/category/${category.toLowerCase()}`}
+                      className="inline-block bg-[#81634b] text-white px-6 py-2 rounded-md hover:bg-[#6b5340] transition-colors font-medium"
+                    >
+                      Buy Now
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         </div>
       </div>
 
       {/* Discover What's New */}
-  <div className="container mx-auto px-2 sm:px-4 py-10 md:py-16">
-  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold">Discover what's new at AlRams</h2>
+      <div className="container mx-auto px-2 sm:px-4 py-10 md:py-16">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-semibold">
+            Discover what's new at AlRams
+          </h2>
           <Link
             to="/new-products"
             className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-black text-black rounded-full hover:bg-black hover:text-white transition-colors font-medium text-sm sm:text-base"
@@ -573,7 +1084,7 @@ const Home = () => {
         </div>
         <div className="relative">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
-            {[ 
+            {[
               {
                 id: 'new-1',
                 name: 'SKOGSSALLAT',
@@ -631,7 +1142,11 @@ const Home = () => {
               >
                 <div className="relative">
                   <img
-                    src={(product.image && product.image !== placeholderImage) ? product.image : assetAt(index)}
+                    src={
+                      product.image && product.image !== placeholderImage
+                        ? product.image
+                        : assetAt(index)
+                    }
                     alt={product.name}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
@@ -645,10 +1160,14 @@ const Home = () => {
                 </div>
                 <div className="p-4">
                   <p className="text-[#81634b] text-sm font-semibold mb-1">
-                    {product.badge === 'Limited edition' ? 'New' : product.badge}
+                    {product.badge === 'Limited edition'
+                      ? 'New'
+                      : product.badge}
                   </p>
                   <h3 className="text-lg font-bold mb-1">{product.name}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{product.description}</p>
+                  <p className="text-sm text-gray-600 mb-3">
+                    {product.description}
+                  </p>
                   <p className="text-xl font-bold mb-2">Rs.{product.price}</p>
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex">
@@ -667,15 +1186,17 @@ const Home = () => {
                       ))}
                     </div>
                     {product.reviews > 0 && (
-                      <span className="text-sm text-gray-600">({product.reviews})</span>
+                      <span className="text-sm text-gray-600">
+                        ({product.reviews})
+                      </span>
                     )}
                   </div>
                   <div className="flex gap-2">
-                    <button 
+                    <button
                       onClick={() => {
                         addToCart({
                           ...product,
-                          price: parseFloat(product.price.replace(',', ''))
+                          price: parseFloat(product.price.replace(',', '')),
                         });
                         toast.success('Added to cart!');
                       }}
@@ -691,7 +1212,7 @@ const Home = () => {
               </div>
             ))}
           </div>
-          
+
           {/* Right Arrow Button */}
           <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-black text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-800 transition-colors z-10">
             <svg
@@ -712,8 +1233,8 @@ const Home = () => {
       </div>
 
       {/* Newest Arrivals */}
-  <div className="bg-gray-50 py-10 md:py-16">
-  <div className="container mx-auto px-2 sm:px-4">
+      <div className="bg-gray-50 py-10 md:py-16">
+        <div className="container mx-auto px-2 sm:px-4">
           <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">
             Discover our Trending Products
           </h2>
@@ -749,7 +1270,9 @@ const Home = () => {
                   <h3 className="text-lg font-semibold mb-2">
                     {collection.name}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4">{collection.details}</p>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {collection.details}
+                  </p>
                   <Link
                     to={`/collection/${collection.name
                       .toLowerCase()
@@ -766,7 +1289,7 @@ const Home = () => {
       </div>
 
       {/* Interior Trends */}
-  <div className="container mx-auto px-2 sm:px-4 py-10 md:py-16">
+      <div className="container mx-auto px-2 sm:px-4 py-10 md:py-16">
         <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">
           Follow Home Interior Trends
         </h2>

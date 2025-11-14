@@ -13,7 +13,7 @@ export const ContentProvider = ({ children }) => {
   const fetchContent = async (page, section) => {
     try {
       const response = await api.get(`/admin/content/${page}/${section}`);
-      setContentData((prev) => ({
+      setContentData(prev => ({
         ...prev,
         [`${page}-${section}`]: response.data,
       }));
@@ -39,9 +39,7 @@ export const ContentProvider = ({ children }) => {
   };
 
   return (
-    <ContentContext.Provider value={value}>
-      {children}
-    </ContentContext.Provider>
+    <ContentContext.Provider value={value}>{children}</ContentContext.Provider>
   );
 };
 

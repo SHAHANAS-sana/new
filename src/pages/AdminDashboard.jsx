@@ -30,7 +30,7 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleContentSelect = (content) => {
+  const handleContentSelect = content => {
     setSelectedContent(content);
     setFormData({
       text: content.content.text || '',
@@ -44,7 +44,7 @@ const AdminDashboard = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (!selectedContent) return;
 
@@ -61,11 +61,11 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = e => {
     const files = Array.from(e.target.files);
     // In a real application, you would upload these files to your server/cloud storage
     // and get back the URLs. For now, we'll create local URLs
-    const imageUrls = files.map((file) => URL.createObjectURL(file));
+    const imageUrls = files.map(file => URL.createObjectURL(file));
     setFormData({
       ...formData,
       images: [...formData.images, ...imageUrls],
@@ -75,12 +75,12 @@ const AdminDashboard = () => {
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="border rounded p-4">
           <h2 className="text-xl font-semibold mb-4">Content Sections</h2>
           <div className="space-y-2">
-            {contents.map((content) => (
+            {contents.map(content => (
               <div
                 key={`${content.page}-${content.section}`}
                 className={`p-2 border rounded cursor-pointer ${
@@ -88,7 +88,9 @@ const AdminDashboard = () => {
                 }`}
                 onClick={() => handleContentSelect(content)}
               >
-                <p className="font-medium">{content.page} - {content.section}</p>
+                <p className="font-medium">
+                  {content.page} - {content.section}
+                </p>
                 <p className="text-sm text-gray-500">
                   Last updated: {new Date(content.updatedAt).toLocaleString()}
                 </p>
@@ -105,7 +107,7 @@ const AdminDashboard = () => {
                 <label className="block mb-2">Text Content</label>
                 <textarea
                   value={formData.text}
-                  onChange={(e) =>
+                  onChange={e =>
                     setFormData({ ...formData, text: e.target.value })
                   }
                   className="w-full p-2 border rounded"
@@ -140,7 +142,7 @@ const AdminDashboard = () => {
                   <input
                     type="color"
                     value={formData.styles.color}
-                    onChange={(e) =>
+                    onChange={e =>
                       setFormData({
                         ...formData,
                         styles: { ...formData.styles, color: e.target.value },
@@ -155,7 +157,7 @@ const AdminDashboard = () => {
                   <input
                     type="color"
                     value={formData.styles.backgroundColor}
-                    onChange={(e) =>
+                    onChange={e =>
                       setFormData({
                         ...formData,
                         styles: {
@@ -173,10 +175,13 @@ const AdminDashboard = () => {
                   <input
                     type="text"
                     value={formData.styles.fontSize}
-                    onChange={(e) =>
+                    onChange={e =>
                       setFormData({
                         ...formData,
-                        styles: { ...formData.styles, fontSize: e.target.value },
+                        styles: {
+                          ...formData.styles,
+                          fontSize: e.target.value,
+                        },
                       })
                     }
                     className="w-full p-2 border rounded"
@@ -187,7 +192,7 @@ const AdminDashboard = () => {
                   <label className="block mb-2">Font Weight</label>
                   <select
                     value={formData.styles.fontWeight}
-                    onChange={(e) =>
+                    onChange={e =>
                       setFormData({
                         ...formData,
                         styles: {

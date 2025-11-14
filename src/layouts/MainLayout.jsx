@@ -16,15 +16,23 @@ const MainLayout = ({ children }) => {
         <div className="animate-scroll whitespace-nowrap inline-block">
           <span className="inline-block">
             {[...Array(8)].map((_, index) => (
-              <span key={index} className="inline-block mx-8 text-sm font-medium">
-                ⭐ Get ₹500 OFF with voucher code 'GIFT500' on a minimum purchase of ₹5000. Enjoy free shipping on orders over ₹999
+              <span
+                key={index}
+                className="inline-block mx-8 text-sm font-medium"
+              >
+                ⭐ Get ₹500 OFF with voucher code 'GIFT500' on a minimum
+                purchase of ₹5000. Enjoy free shipping on orders over ₹999
               </span>
             ))}
           </span>
           <span className="inline-block" aria-hidden="true">
             {[...Array(8)].map((_, index) => (
-              <span key={index} className="inline-block mx-8 text-sm font-medium">
-                ⭐ Get ₹500 OFF with voucher code 'GIFT500' on a minimum purchase of ₹5000. Enjoy free shipping on orders over ₹999
+              <span
+                key={index}
+                className="inline-block mx-8 text-sm font-medium"
+              >
+                ⭐ Get ₹500 OFF with voucher code 'GIFT500' on a minimum
+                purchase of ₹5000. Enjoy free shipping on orders over ₹999
               </span>
             ))}
           </span>

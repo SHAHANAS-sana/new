@@ -33,13 +33,10 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           {/* Logo - Now leftmost */}
           <div className="flex items-center">
-            <Link
-              to="/"
-              className="flex items-center py-2"
-            >
-              <img 
-                src="/assets/logo.png" 
-                alt="Alrams Furniture & Interiors" 
+            <Link to="/" className="flex items-center py-2">
+              <img
+                src="/assets/logo.png"
+                alt="Alrams Furniture & Interiors"
                 className="h-12 md:h-14 w-auto object-contain bg-white px-2 py-1 rounded"
               />
             </Link>

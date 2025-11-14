@@ -14,7 +14,7 @@ const StyleEditor = ({ styles, onChange }) => {
         <input
           type="color"
           value={styles.color}
-          onChange={(e) => handleChange('color', e.target.value)}
+          onChange={e => handleChange('color', e.target.value)}
           className="w-full h-10 p-1 border rounded"
         />
       </div>
@@ -26,7 +26,7 @@ const StyleEditor = ({ styles, onChange }) => {
         <input
           type="color"
           value={styles.backgroundColor}
-          onChange={(e) => handleChange('backgroundColor', e.target.value)}
+          onChange={e => handleChange('backgroundColor', e.target.value)}
           className="w-full h-10 p-1 border rounded"
         />
       </div>
@@ -37,7 +37,7 @@ const StyleEditor = ({ styles, onChange }) => {
         </label>
         <select
           value={styles.fontSize}
-          onChange={(e) => handleChange('fontSize', e.target.value)}
+          onChange={e => handleChange('fontSize', e.target.value)}
           className="w-full p-2 border rounded"
         >
           <option value="12px">12px</option>
@@ -57,7 +57,7 @@ const StyleEditor = ({ styles, onChange }) => {
         </label>
         <select
           value={styles.fontWeight}
-          onChange={(e) => handleChange('fontWeight', e.target.value)}
+          onChange={e => handleChange('fontWeight', e.target.value)}
           className="w-full p-2 border rounded"
         >
           <option value="normal">Normal</option>
@@ -74,7 +74,7 @@ const StyleEditor = ({ styles, onChange }) => {
         <input
           type="text"
           value={styles.padding}
-          onChange={(e) => handleChange('padding', e.target.value)}
+          onChange={e => handleChange('padding', e.target.value)}
           placeholder="e.g., 10px or 10px 20px"
           className="w-full p-2 border rounded"
         />
@@ -87,7 +87,7 @@ const StyleEditor = ({ styles, onChange }) => {
         <input
           type="text"
           value={styles.margin}
-          onChange={(e) => handleChange('margin', e.target.value)}
+          onChange={e => handleChange('margin', e.target.value)}
           placeholder="e.g., 10px or 10px 20px"
           className="w-full p-2 border rounded"
         />

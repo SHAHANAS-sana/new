@@ -10,7 +10,7 @@ function runCommand(command, args, options = {}) {
   });
 
   return new Promise((resolve, reject) => {
-    child.on('exit', (code) => {
+    child.on('exit', code => {
       if (code === 0) {
         resolve();
       } else {

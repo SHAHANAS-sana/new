@@ -18,13 +18,17 @@ const AdminPanel = () => {
       fontWeight: 'normal',
       padding: '0px',
       margin: '0px',
-    }
+    },
   });
 
   const pages = [
-    { id: 'home', name: 'Home Page', sections: ['hero', 'features', 'categories'] },
+    {
+      id: 'home',
+      name: 'Home Page',
+      sections: ['hero', 'features', 'categories'],
+    },
     { id: 'about', name: 'About Page', sections: ['main', 'team', 'mission'] },
-    { id: 'contact', name: 'Contact Page', sections: ['info', 'form', 'map'] }
+    { id: 'contact', name: 'Contact Page', sections: ['info', 'form', 'map'] },
   ];
 
   const handleContentUpdate = async () => {
@@ -38,16 +42,19 @@ const AdminPanel = () => {
         }
       });
 
-      const response = await fetch(`/api/admin/content/${selectedPage}/${selectedSection}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: formData
-      });
+      const response = await fetch(
+        `/api/admin/content/${selectedPage}/${selectedSection}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: formData,
+        }
+      );
 
       if (!response.ok) throw new Error('Failed to update content');
-      
+
       const result = await response.json();
       console.log('Content updated:', result);
       // Show success message
@@ -69,7 +76,9 @@ const AdminPanel = () => {
                 <div key={page.id} className="space-y-2">
                   <button
                     className={`w-full text-left px-4 py-2 rounded-md ${
-                      selectedPage === page.id ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'
+                      selectedPage === page.id
+                        ? 'bg-blue-500 text-white'
+                        : 'hover:bg-gray-100'
                     }`}
                     onClick={() => setSelectedPage(page.id)}
                   >
@@ -81,7 +90,9 @@ const AdminPanel = () => {
                         <button
                           key={section}
                           className={`w-full text-left px-4 py-2 rounded-md ${
-                            selectedSection === section ? 'bg-blue-100' : 'hover:bg-gray-50'
+                            selectedSection === section
+                              ? 'bg-blue-100'
+                              : 'hover:bg-gray-50'
                           }`}
                           onClick={() => setSelectedSection(section)}
                         >
@@ -99,8 +110,10 @@ const AdminPanel = () => {
           <div className="md:col-span-9 space-y-6">
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-xl font-semibold mb-4">
-                Edit {selectedPage.charAt(0).toUpperCase() + selectedPage.slice(1)} - 
-                {selectedSection.charAt(0).toUpperCase() + selectedSection.slice(1)}
+                Edit{' '}
+                {selectedPage.charAt(0).toUpperCase() + selectedPage.slice(1)} -
+                {selectedSection.charAt(0).toUpperCase() +
+                  selectedSection.slice(1)}
               </h2>
 
               {/* Text Editor */}
@@ -110,7 +123,9 @@ const AdminPanel = () => {
                 </label>
                 <textarea
                   value={content.text}
-                  onChange={(e) => setContent({ ...content, text: e.target.value })}
+                  onChange={e =>
+                    setContent({ ...content, text: e.target.value })
+                  }
                   className="w-full h-32 p-3 border rounded-md focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter content text..."
                 />
@@ -123,7 +138,9 @@ const AdminPanel = () => {
                 </label>
                 <ImageUpload
                   images={content.images}
-                  onChange={(newImages) => setContent({ ...content, images: newImages })}
+                  onChange={newImages =>
+                    setContent({ ...content, images: newImages })
+                  }
                 />
               </div>
 
@@ -133,8 +150,11 @@ const AdminPanel = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <StyleEditor
                     styles={content.styles}
-                    onChange={(newStyles) =>
-                      setContent({ ...content, styles: { ...content.styles, ...newStyles } })
+                    onChange={newStyles =>
+                      setContent({
+                        ...content,
+                        styles: { ...content.styles, ...newStyles },
+                      })
                     }
                   />
                 </div>
@@ -143,16 +163,17 @@ const AdminPanel = () => {
               {/* Preview */}
               <div className="mb-6">
                 <h3 className="text-lg font-medium mb-4">Preview</h3>
-                <div
-                  className="p-4 border rounded-md"
-                  style={content.styles}
-                >
+                <div className="p-4 border rounded-md" style={content.styles}>
                   <div>{content.text}</div>
                   <div className="grid grid-cols-3 gap-2 mt-2">
                     {content.images.map((image, index) => (
                       <img
                         key={index}
-                        src={typeof image === 'string' ? image : URL.createObjectURL(image)}
+                        src={
+                          typeof image === 'string'
+                            ? image
+                            : URL.createObjectURL(image)
+                        }
                         alt={`Preview ${index + 1}`}
                         className="w-full h-32 object-cover rounded"
                       />
