@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaTwitter, FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 
 const Footer = () => {
@@ -26,14 +26,14 @@ const Footer = () => {
       { name: 'FAQ', path: '/faq' },
     ],
     SOCIAL: [
-      { name: 'Twitter', path: 'https://twitter.com', icon: <FaTwitter /> },
+      { name: 'Instagram', path: 'https://instagram.com', icon: <FaInstagram /> },
       { name: 'Facebook', path: 'https://facebook.com', icon: <FaFacebookF /> },
       {
         name: 'LinkedIn',
         path: 'https://linkedin.com',
         icon: <FaLinkedinIn />,
       },
-      { name: 'Google', path: 'https://google.com', icon: <FcGoogle /> },
+  { name: 'Google', path: 'https://google.com', icon: <FcGoogle /> },
     ],
   };
 

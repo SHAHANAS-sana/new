@@ -1,131 +1,809 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import DynamicContent from '../components/DynamicContent';
+import { useCart } from '../contexts/CartContext';
+import { toast } from 'react-toastify';
 
 const Home = () => {
+  const [activeCategory, setActiveCategory] = useState('Living Room');
+  const { addToCart } = useCart();
+  // Add a placeholder image constant
+  const placeholderImage = 'https://via.placeholder.com/400x300';
+
+  // Local assets to populate product images across sections
+  const assetImages = [
+    '/assets/img1.jpg',
+    '/assets/img2.jpg',
+    '/assets/bgimg.jpg',
+    '/assets/w23-03-sofatypes-1.webp',
+    '/assets/w23-04-sofatypes-2.webp',
+    '/assets/w23-05-sofatypes-3.webp',
+    '/assets/w23-06-size-3-seater.webp',
+    '/assets/w23-07-size-2-seater.webp',
+    '/assets/w23-08-size-1-seater.webp',
+    '/assets/w23-04-materials-solidwood-rv.webp',
+    '/assets/w23-06-materials-metal-rv.webp',
+    '/assets/w23-02-sofatypes.webp',
+    '/assets/50bce133-677a-4aa5-b89d-e4b880412217.webp',
+    '/assets/4c44a41a-409c-4471-b806-fcc32794aadb.webp',
+    '/assets/4015dcfa-a65f-4ea6-8754-be07c8927c3c.webp'
+  ];
+
+  const assetAt = (i) => assetImages[i % assetImages.length];
+
+  const categories = [
+    'Living Room',
+    'Bed Room',
+    'Dining Room',
+    'Study Room',
+    'Sofa',
+    'Office Room',
+    'Luxury Furniture',
+  ];
+
+  // Category products with images
+  const categoryProducts = {
+    'Living Room': [
+      // Updated Living Room images (12)
+      { name: 'Sofas', image: '/assets/living room-13.jpeg', link: '/category/sofas' },
+      { name: 'Centre Tables', image: '/assets/living room-9.jpeg', link: '/category/centre-tables' },
+      { name: 'Sofa Chairs', image: '/assets/living room-7.jpeg', link: '/category/sofa-chairs' },
+      { name: 'Cabinets and Sideboards', image: '/assets/living room-10.jpeg', link: '/category/cabinets-sideboards' },
+      { name: 'Wall Art and Paintings', image: '/assets/living room-11.jpeg', link: '/category/wall-art-paintings' },
+      { name: 'Hanging Lights', image: '/assets/living room-12.jpeg', link: '/category/hanging-lights' },
+      { name: 'Mandirs', image: '/assets/living room-6.jpeg', link: '/category/mandirs' },
+      { name: 'Chairs', image: '/assets/living room-5.jpeg', link: '/category/chairs' },
+      { name: 'Recliners', image: '/assets/living room-4.jpeg', link: '/category/recliners' },
+      { name: 'TV & Media Units', image: '/assets/living room-3.jpeg', link: '/category/tv-media-units' },
+      { name: 'Carpets', image: '/assets/living room-2.jpeg', link: '/category/carpets' },
+      { name: 'Curtains', image: '/assets/living room-1.jpeg', link: '/category/curtains' },
+    ],
+    'Bed Room': [
+      // Beds (2 images)
+      { name: 'Beds', image: '/assets/fff07b90-346e-4729-b36a-04e207ca3d25.webp', link: '/category/beds' },
+      { name: 'Beds', image: '/assets/fbb3fd53-08af-46b3-8081-bc938329ea33.webp', link: '/category/beds' },
+      // Wardrobes (2 images)
+      { name: 'Wardrobes', image: '/assets/db72241d-5c2a-470d-8286-2129571c4f57.webp', link: '/category/wardrobes' },
+      { name: 'Wardrobes', image: '/assets/c0f15e36-196d-48e0-ba80-8df0d7edfe20.webp', link: '/category/wardrobes' },
+      // Nightstands (2 images)
+      { name: 'Nightstands', image: '/assets/b0be476d-023f-4cd8-a4a8-331dc770cbbc.webp', link: '/category/nightstands' },
+      { name: 'Nightstands', image: '/assets/624b701d-af35-4f54-986d-b5742b7e9279.webp', link: '/category/nightstands' },
+      // Dressing Tables (2 images)
+      { name: 'Dressing Tables', image: '/assets/144eb8f8-4856-4c18-a6b3-4e9a6b2eea96.webp', link: '/category/dressing-tables' },
+      { name: 'Dressing Tables', image: '/assets/60dce995-2d0c-4b5c-b702-976c399b7db3.webp', link: '/category/dressing-tables' },
+      // Mattresses (2 images)
+      { name: 'Mattresses', image: '/assets/624b701d-af35-4f54-986d-b5742b7e9279.webp', link: '/category/mattresses' },
+      { name: 'Mattresses', image: '/assets/144eb8f8-4856-4c18-a6b3-4e9a6b2eea96.webp', link: '/category/mattresses' },
+      // Bedside Lamps (2 images)
+      { name: 'Bedside Lamps', image: '/assets/50bce133-677a-4aa5-b89d-e4b880412217.webp', link: '/category/bedside-lamps' },
+      { name: 'Bedside Lamps', image: '/assets/6a2a16cb-bdc1-4bb9-a6a9-92cbf27dfd00.webp', link: '/category/bedside-lamps' },
+    ],
+    'Dining Room': [
+      // Dining Tables (2)
+      { name: 'Dining Tables', image: '/assets/dinig table-11.jpeg', link: '/category/dining-tables' },
+      { name: 'Dining Tables', image: '/assets/dining table-1.jpeg', link: '/category/dining-tables' },
+      // Dining Chairs (2) using provided and related asset
+      { name: 'Dining Chairs', image: '/assets/8eaa5bc1-f088-4ae6-ac16-3cfcbee88e1b.webp', link: '/category/dining-chairs' },
+      { name: 'Dining Chairs', image: '/assets/dining table-4.jpeg', link: '/category/dining-chairs' },
+      // Dining Sets (2)
+      { name: 'Dining Sets', image: '/assets/dining table-4.jpeg', link: '/category/dining-sets' },
+      { name: 'Dining Sets', image: '/assets/dining table-15.jpeg', link: '/category/dining-sets' },
+      // Buffets & Sideboards (2) - fallback to remaining dining images
+      { name: 'Buffets & Sideboards', image: '/assets/dining table-12.jpeg', link: '/category/buffets' },
+      { name: 'Buffets & Sideboards', image: '/assets/dining table-13.jpeg', link: '/category/buffets' },
+      // Bar Cabinets (2)
+      { name: 'Bar Cabinets', image: '/assets/dining table-14.jpeg', link: '/category/bar-cabinets' },
+      { name: 'Bar Cabinets', image: '/assets/dining table-10.jpeg', link: '/category/bar-cabinets' },
+      // Crockery Units (2)
+      { name: 'Crockery Units', image: '/assets/Dining Table-2.jpeg', link: '/category/crockery-units' },
+      { name: 'Crockery Units', image: '/assets/Dining Table-3.jpeg', link: '/category/crockery-units' },
+    ],
+    'Study Room': [
+      // Study Tables (2)
+      { name: 'Study Tables', image: '/assets/study room-1.jpeg', link: '/category/study-tables' },
+      { name: 'Study Tables', image: '/assets/study room-2.jpeg', link: '/category/study-tables' },
+      // Office Chairs (2)
+      { name: 'Office Chairs', image: '/assets/study room-3.jpeg', link: '/category/office-chairs' },
+      { name: 'Office Chairs', image: '/assets/study room-7.jpeg', link: '/category/office-chairs' },
+      // Bookshelves (2)
+      { name: 'Bookshelves', image: '/assets/study room-6.jpeg', link: '/category/bookshelves' },
+      { name: 'Bookshelves', image: '/assets/study room-2.jpeg', link: '/category/bookshelves' },
+      // Study Lamps (2)
+      { name: 'Study Lamps', image: '/assets/study room-5.jpeg', link: '/category/study-lamps' },
+      { name: 'Study Lamps', image: '/assets/study room-10.jpeg', link: '/category/study-lamps' },
+      // File Cabinets (2)
+      { name: 'File Cabinets', image: '/assets/Study Room-9.jpeg', link: '/category/file-cabinets' },
+      { name: 'File Cabinets', image: '/assets/study room-8.jpeg', link: '/category/file-cabinets' },
+    ],
+    'Sofa': [
+      // 3-Seater Sofas (2)
+      { name: '3-Seater Sofas', image: '/assets/w23-06-size-3-seater.webp', link: '/category/3-seater-sofas' },
+      { name: '3-Seater Sofas', image: '/assets/undefined (13).jpeg', link: '/category/3-seater-sofas' },
+      // 2-Seater Sofas (2)
+      { name: '2-Seater Sofas', image: '/assets/w23-07-size-2-seater.webp', link: '/category/2-seater-sofas' },
+      { name: '2-Seater Sofas', image: '/assets/w23-02-sofatypes.webp', link: '/category/2-seater-sofas' },
+      // 1-Seater Sofas (2)
+      { name: '1-Seater Sofas', image: '/assets/w23-08-size-1-seater.webp', link: '/category/1-seater-sofas' },
+      { name: '1-Seater Sofas', image: '/assets/w23-03-sofatypes-1.webp', link: '/category/1-seater-sofas' },
+      // L-Shaped Sofas (2)
+      { name: 'L-Shaped Sofas', image: '/assets/w23-05-sofatypes-3.webp', link: '/category/l-shaped-sofas' },
+      { name: 'L-Shaped Sofas', image: '/assets/w23-04-sofatypes-2.webp', link: '/category/l-shaped-sofas' },
+      // Modern Sofas (2)
+      { name: 'Modern Sofas', image: '/assets/w23-03-sofatypes-1.webp', link: '/category/modern-sofas' },
+      { name: 'Modern Sofas', image: '/assets/undefined (7).jpeg', link: '/category/modern-sofas' },
+      // Designer Sofas (2)
+      { name: 'Designer Sofas', image: '/assets/sofa veludo moderno - Pesquisa Google.jpeg', link: '/category/designer-sofas' },
+      { name: 'Designer Sofas', image: '/assets/img1.jpg', link: '/category/designer-sofas' },
+      // Luxury Sofas (2)
+      { name: 'Luxury Sofas', image: '/assets/Everything You Need to Know About Benjamin Moore….jpeg', link: '/category/luxury-sofas' },
+      { name: 'Luxury Sofas', image: '/assets/41 Living Room Wall Colors To Elevate Your Home… (1).jpeg', link: '/category/luxury-sofas' },
+    ],
+    'Office Room': [
+      // Executive Chairs (2)
+      { name: 'Executive Chairs', image: '/assets/8246b57c-175a-428f-9206-577466453eda.webp', link: '/category/executive-chairs' },
+      { name: 'Executive Chairs', image: '/assets/Armchair with four star aluminum swivel central….jpeg', link: '/category/executive-chairs' },
+      // Manager Chairs (2)
+      { name: 'Manager Chairs', image: '/assets/HUIQC Boss Chair Managerial Executive….jpeg', link: '/category/manager-chairs' },
+      { name: 'Manager Chairs', image: '/assets/Qué incluye Estilo_ moderno Tipo de producto….jpeg', link: '/category/manager-chairs' },
+      // Office Desks (2)
+      { name: 'Office Desks', image: '/assets/undefined (8).jpeg', link: '/category/office-desks' },
+      { name: 'Office Desks', image: '/assets/undefined (9).jpeg', link: '/category/office-desks' },
+      // Ergonomic Chairs (2)
+      { name: 'Ergonomic Chairs', image: '/assets/Upgrade your workspace with the best ergonomic….jpeg', link: '/category/ergonomic-chairs' },
+      { name: 'Ergonomic Chairs', image: '/assets/With ergonomic design and premium materials, it….jpeg', link: '/category/ergonomic-chairs' },
+    ],
+    'Luxury Furniture': [
+      // Luxury Sofas (2)
+      { name: 'Luxury Sofas', image: '/assets/luxury chaoir-8.jpeg', link: '/category/luxury-sofas' },
+      { name: 'Luxury Sofas', image: '/assets/Beatiful chair 😍.jpeg', link: '/category/luxury-sofas' },
+      // Luxury Beds (2)
+      { name: 'Luxury Beds', image: '/assets/luxury-1.jpeg', link: '/category/luxury-beds' },
+      { name: 'Luxury Beds', image: '/assets/luxury-2.jpeg', link: '/category/luxury-beds' },
+      // Luxury Dining Sets (2)
+      { name: 'Luxury Dining Sets', image: '/assets/luxury-3.jpeg', link: '/category/luxury-dining' },
+      { name: 'Luxury Dining Sets', image: '/assets/luxury-4.jpeg', link: '/category/luxury-dining' },
+      // Designer Chairs (2)
+      { name: 'Designer Chairs', image: '/assets/luxury-5.jpeg', link: '/category/designer-chairs' },
+      { name: 'Designer Chairs', image: '/assets/luxury-6.jpeg', link: '/category/designer-chairs' },
+      // Premium Lighting (2)
+      { name: 'Premium Lighting', image: '/assets/luxury-7.jpeg', link: '/category/premium-lighting' },
+      { name: 'Premium Lighting', image: '/assets/luxury-9.jpeg', link: '/category/premium-lighting' },
+      // Luxury Decor (2)
+      { name: 'Luxury Decor', image: '/assets/luxury-10.jpeg', link: '/category/luxury-decor' },
+      { name: 'Luxury Decor', image: '/assets/luxury-11.jpeg', link: '/category/luxury-decor' },
+    ],
+  };
+
   return (
-    <div className="min-h-screen bg-[#f5f5f3]">
+  <div className="min-h-screen bg-[#f5f5f3]">
       {/* Hero Section */}
-      <div className="relative h-screen">
-        <div className="absolute inset-0">
-          <img
-            src="/images/hero-modern.jpg"
-            alt="Modern Interior"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/20"></div>
-        </div>
-        <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
-            <h1 className="text-5xl md:text-7xl font-light text-white mb-6">
-              The Art of Smart<br />Alarm Living
-            </h1>
-          </div>
-        </div>
-      </div>
-
-      {/* Service Features */}
-      <div className="border-t border-b border-gray-200 bg-black text-white">
-        <div className="container mx-auto py-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="flex items-center justify-center space-x-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>Smart Scheduling</span>
-            </div>
-            <div className="flex items-center justify-center space-x-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-              <span>Reliable Alarms</span>
-            </div>
-            <div className="flex items-center justify-center space-x-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              <span>Sync Across Devices</span>
-            </div>
-            <div className="flex items-center justify-center space-x-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-              <span>Support 24/7</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Categories Grid */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {categories.map((category) => (
-            <Link
-              key={category.name}
-              to={category.path}
-              className="group relative aspect-square overflow-hidden bg-gray-100"
-            >
-              <img
-                src={category.image}
-                alt={category.name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+  <div
+        className="relative w-full h-screen flex items-center"
+        style={{
+          backgroundImage: "url('/assets/background image.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/35"></div>
+        <div className="relative w-full flex items-center">
+          <div className="container mx-auto px-2 sm:px-4">
+            <div className="max-w-2xl p-4 rounded-lg">
+              <DynamicContent 
+                page="home"
+                section="hero"
+                defaultContent={{
+                  text: "Transform Your\nLiving Space",
+                  styles: {
+                    color: "#ffffff",
+                    fontSize: "4.5rem",
+                    fontWeight: "300"
+                  }
+                }}
               />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300"></div>
-              <div className="absolute bottom-4 left-4">
-                <h3 className="text-white text-xl font-light">{category.name}</h3>
-                <p className="text-white/80 text-sm">{category.count}</p>
+              <DynamicContent 
+                page="home"
+                section="hero-subtitle"
+                defaultContent={{
+                  text: "Discover premium furniture and home décor that reflects your style",
+                  styles: {
+                    color: "rgba(255, 255, 255, 0.9)",
+                    fontSize: "1.25rem"
+                  }
+                }}
+              />
+              <div className="flex flex-col sm:flex-row gap-4 sm:space-x-4">
+                <Link
+                  to="/collections"
+                  className="px-8 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors text-lg font-medium"
+                >
+                  Shop Now
+                </Link>
+                <Link
+                  to="/design-consultation"
+                  className="px-8 py-3 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors text-lg font-medium"
+                >
+                  Free Design Consultation
+                </Link>
               </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Featured Section */}
-      <div className="bg-[#1A1A1A] text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="aspect-video">
-              <img
-                src="/images/featured-alarm.jpg"
-                alt="Smart Alarms"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="space-y-6">
-              <h2 className="text-3xl font-light">Smart Living: Innovative Alarm Solutions</h2>
-              <p className="text-gray-400">
-                Experience the future of wake-up calls with our intelligent alarm system that adapts to your lifestyle and helps you maintain a healthy sleep schedule.
-              </p>
-              <Link
-                to="/alarms"
-                className="inline-block bg-white text-black px-8 py-3 hover:bg-gray-100 transition-colors duration-300"
-              >
-                Get Started
-              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Popular Features */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-light">Popular Features</h2>
-          <Link to="/features" className="text-gray-600 hover:text-black transition-colors duration-300">
-            View All
-          </Link>
+      {/* Features Section */}
+      <div className="bg-white py-6 md:py-8">
+        <div className="container mx-auto px-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Fast & Free Shipping */}
+            <div className="flex flex-col items-center text-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-md hover:scale-105 cursor-pointer">
+              <div className="mb-2">
+                <svg className="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 24H36V40H8V24Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M36 28H44L52 36V40H36V28Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="16" cy="44" r="4" stroke="currentColor" strokeWidth="2"/>
+                  <circle cx="44" cy="44" r="4" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M12 24V20H4V44H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M40 44H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M48 44H52V36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M28 20L32 16L36 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M32 16V24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold mb-1">Fast & Free Shipping</h3>
+              <p className="text-sm text-gray-600">Doorstep Delivery</p>
+            </div>
+
+            {/* Customer Support */}
+            <div className="flex flex-col items-center text-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-md hover:scale-105 cursor-pointer">
+              <div className="mb-2">
+                <svg className="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="32" cy="32" r="20" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M20 28C20 28 24 24 32 24C40 24 44 28 44 28" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M20 36C20 36 24 40 32 40C40 40 44 36 44 36" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="32" cy="32" r="3" fill="currentColor"/>
+                  <path d="M16 20C16 20 14 18 14 14C14 10 16 8 16 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M48 20C48 20 50 18 50 14C50 10 48 8 48 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold mb-1">Customer Support</h3>
+              <p className="text-sm text-gray-600">Multi-Language Support</p>
+            </div>
+
+            {/* Hassle-Free Returns */}
+            <div className="flex flex-col items-center text-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-md hover:scale-105 cursor-pointer">
+              <div className="mb-2">
+                <svg className="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 24H40V40H16V24Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M40 28H48L52 32V40H40V28Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="24" cy="44" r="4" stroke="currentColor" strokeWidth="2"/>
+                  <circle cx="44" cy="44" r="4" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M12 24V20H8V44H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M28 44H40" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M48 44H52V32" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M32 16L28 20L32 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M28 20H36" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold mb-1">Hassle-Free Returns</h3>
+              <p className="text-sm text-gray-600">7 Days Return Period</p>
+            </div>
+
+            {/* Secure Transaction */}
+            <div className="flex flex-col items-center text-center p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 hover:shadow-md hover:scale-105 cursor-pointer">
+              <div className="mb-2">
+                <svg className="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M32 8L12 16V28C12 40 20 50 32 56C44 50 52 40 52 28V16L32 8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M32 20V32L38 38" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <text x="32" y="48" textAnchor="middle" fontSize="8" fill="currentColor" fontFamily="Arial, sans-serif" fontWeight="bold">Razorpay</text>
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold mb-1">Secure Transaction</h3>
+              <p className="text-sm text-gray-600">Powered by Razorpay</p>
+            </div>
+          </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {features.map((feature) => (
-            <div key={feature.id} className="group">
-              <div className="aspect-square bg-gray-100 mb-4 relative overflow-hidden">
+      </div>
+
+      {/* Explore Best Seller Section */}
+      <div className="bg-gray-50 py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-[#81634b] mb-8 md:mb-12">
+            Explore Best Seller
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {/* Furniture */}
+            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={feature.image}
-                  alt={feature.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  src="/assets/living room-13.jpeg"
+                  alt="Furniture"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
-              <h3 className="font-light text-lg mb-2">{feature.name}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3 className="text-2xl font-semibold mb-3">Furniture</h3>
+                <Link
+                  to="/category/furniture"
+                  className="inline-block px-6 py-2 bg-[#81634b] hover:bg-[#6b5340] text-white rounded-md transition-colors"
+                >
+                  Buy Now
+                </Link>
+              </div>
+            </div>
+
+            {/* Mattresses */}
+            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src="/assets/624b701d-af35-4f54-986d-b5742b7e9279.webp"
+                  alt="Mattresses"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3 className="text-2xl font-semibold mb-3">Mattresses</h3>
+                <Link
+                  to="/category/mattresses"
+                  className="inline-block px-6 py-2 bg-[#81634b] hover:bg-[#6b5340] text-white rounded-md transition-colors"
+                >
+                  Buy Now
+                </Link>
+              </div>
+            </div>
+
+            {/* Home Goods */}
+            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src="/assets/living room-11.jpeg"
+                  alt="Home Goods"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3 className="text-2xl font-semibold mb-3">Home Goods</h3>
+                <Link
+                  to="/category/home-goods"
+                  className="inline-block px-6 py-2 bg-[#81634b] hover:bg-[#6b5340] text-white rounded-md transition-colors"
+                >
+                  Buy Now
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <div className="bg-white py-8 md:py-12">
+  <div className="container mx-auto text-center px-2 sm:px-4">
+          {/* Title */}
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#81634b] mb-6 md:mb-8">
+            Shop All Things Home
+          </h2>
+
+          {/* Category Pills */}
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 md:mb-12">
+            {categories.map((category, index) => {
+              const isActive = category === activeCategory;
+              return (
+                <button
+                  key={index}
+                  onClick={() => setActiveCategory(category)}
+                  className={`px-6 py-3 rounded-full border transition-all duration-200 cursor-pointer 
+                    ${
+                      isActive
+                        ? 'bg-[#81634b] border-[#81634b] text-white shadow-md'
+                        : 'bg-white border-gray-300 text-gray-600 hover:bg-[#81634b]/10 hover:border-[#81634b] hover:text-[#81634b] active:bg-[#81634b]/20 active:border-[#81634b]'
+                    }`}
+                >
+                  {category}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Product Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-1 sm:px-4">
+            {categoryProducts[activeCategory]?.map((product, index) => (
+              <Link
+                key={index}
+                to={product.link}
+                className="group"
+              >
+                <div className="bg-white border border-gray-200 aspect-square relative overflow-hidden hover:shadow-lg transition-all duration-300" style={{ borderRadius: '10px' }}>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    onError={(e) => {
+                      e.target.src = placeholderImage;
+                    }}
+                  />
+                </div>
+                <h3 className="text-center mt-4 text-sm font-medium text-gray-800 group-hover:text-blue-600 transition-colors">
+                  {product.name}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Mega Festive Deals */}
+  <div className="container mx-auto px-2 sm:px-4 py-10 md:py-16">
+  <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">Mega Festive Deals</h2>
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+          {[
+            {
+              id: 'deal-1',
+              name: '10 Pcs Self Adhesive Waterproof Wall Hooks',
+              price: 99,
+              originalPrice: 299,
+              discount: '67%',
+              image: placeholderImage,
+            },
+            {
+              id: 'deal-2',
+              name: 'Multicolour Marble Puja Chowki for God Idols',
+              price: 99,
+              originalPrice: 229,
+              discount: '57%',
+              image: placeholderImage,
+            },
+            {
+              id: 'deal-3',
+              name: 'Quick Drying Hair Wrap Towel with 1 Free Scrunchie',
+              price: 99,
+              originalPrice: 499,
+              discount: '80%',
+              image: placeholderImage,
+            },
+            {
+              id: 'deal-4',
+              name: '72 LED LED Tree',
+              price: 499,
+              originalPrice: 799,
+              discount: '38%',
+              image: placeholderImage,
+            },
+            {
+              id: 'deal-5',
+              name: 'Set of 6 Coffee Brown (12 x 16) PVC Placemats',
+              price: 99,
+              originalPrice: 799,
+              discount: '88%',
+              image: placeholderImage,
+            },
+          ].map((product, index) => (
+            <div
+              key={product.name}
+              className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+            >
+              <img
+                src={(product.image && product.image !== placeholderImage) ? product.image : assetAt(index)}
+                alt={product.name}
+                className="w-full h-48 object-cover rounded mb-4"
+              />
+              <h3 className="text-sm font-medium mb-2">{product.name}</h3>
+              <div className="flex items-center space-x-2 mb-3">
+                <span className="text-lg font-bold">₹{product.price}</span>
+                <span className="text-gray-500 line-through text-sm">
+                  ₹{product.originalPrice}
+                </span>
+                <span className="text-green-600 text-sm">
+                  {product.discount}
+                </span>
+              </div>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => {
+                    addToCart(product);
+                    toast.success('Added to cart!');
+                  }}
+                  className="flex-1 py-2 border-2 border-gray-900 text-gray-900 rounded-full hover:bg-gray-900 hover:text-white transition-colors font-medium text-xs sm:text-sm"
+                >
+                  ADD TO CART
+                </button>
+                <button className="flex-1 py-2 bg-[#81634b] text-white rounded-full hover:bg-[#6b5340] transition-colors font-medium text-xs sm:text-sm">
+                  BUY NOW
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+  <div className="text-center mt-6 md:mt-8">
+          <Link
+            to="/deals"
+            className="inline-block px-6 py-3 bg-[#81634b] text-white rounded-lg hover:bg-[#6b5340] transition-colors"
+          >
+            Explore More Deals
+          </Link>
+        </div>
+      </div>
+
+      {/* Best Seller Categories */}
+  <div className="bg-gray-50 py-10 md:py-16">
+  <div className="container mx-auto px-2 sm:px-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">
+            Explore Best Seller Categories
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+            {['Furniture', 'Mattresses', 'Home Goods'].map((category, index) => (
+              <div
+                key={category}
+                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="w-full bg-white" style={{aspectRatio: '16/9'}}>
+                  <img
+                    src={assetAt(index)}
+                    alt={category}
+                    className="w-full h-full object-cover md:object-contain"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold mb-2">{category}</h3>
+                  <Link
+                    to={`/category/${category.toLowerCase()}`}
+                    className="inline-block bg-[#81634b] text-white px-6 py-2 rounded-md hover:bg-[#6b5340] transition-colors font-medium"
+                  >
+                    Buy Now
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Discover What's New */}
+  <div className="container mx-auto px-2 sm:px-4 py-10 md:py-16">
+  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-semibold">Discover what's new at AlRams</h2>
+          <Link
+            to="/new-products"
+            className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-black text-black rounded-full hover:bg-black hover:text-white transition-colors font-medium text-sm sm:text-base"
+          >
+            Discover all the new products
+          </Link>
+        </div>
+        <div className="relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+            {[ 
+              {
+                id: 'new-1',
+                name: 'SKOGSSALLAT',
+                description: 'Bath robe, S/M',
+                price: '2,334',
+                rating: 4.5,
+                reviews: 21,
+                image: placeholderImage,
+                badge: 'New',
+              },
+              {
+                id: 'new-2',
+                name: 'PELARBJÖRK',
+                description: 'Vase, 20 cm (7 ¾ ")',
+                price: '1,865',
+                rating: 5,
+                reviews: 0,
+                image: placeholderImage,
+                badge: 'New',
+              },
+              {
+                id: 'new-3',
+                name: 'GANSJÖN',
+                description: '3-piece bathroom set',
+                price: '1,290',
+                rating: 4,
+                reviews: 48,
+                image: placeholderImage,
+                badge: 'Limited edition',
+              },
+              {
+                id: 'new-4',
+                name: 'BLODBJÖRK',
+                description: 'Vase, 16 cm (6 ¼ ")',
+                price: '467',
+                rating: 5,
+                reviews: 6,
+                image: placeholderImage,
+                badge: 'New',
+              },
+              {
+                id: 'new-5',
+                name: 'SKALLKNEKT',
+                description: '2-piece salad servers set',
+                price: '233',
+                rating: 5,
+                reviews: 12,
+                image: placeholderImage,
+                badge: 'New',
+              },
+            ].map((product, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer"
+              >
+                <div className="relative">
+                  <img
+                    src={(product.image && product.image !== placeholderImage) ? product.image : assetAt(index)}
+                    alt={product.name}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {product.badge && (
+                    <div
+                      className={`absolute top-4 left-4 px-3 py-1 text-white text-xs font-semibold rounded bg-[#81634b]`}
+                    >
+                      {product.badge}
+                    </div>
+                  )}
+                </div>
+                <div className="p-4">
+                  <p className="text-[#81634b] text-sm font-semibold mb-1">
+                    {product.badge === 'Limited edition' ? 'New' : product.badge}
+                  </p>
+                  <h3 className="text-lg font-bold mb-1">{product.name}</h3>
+                  <p className="text-sm text-gray-600 mb-3">{product.description}</p>
+                  <p className="text-xl font-bold mb-2">Rs.{product.price}</p>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className={`w-4 h-4 ${
+                            i < Math.floor(product.rating)
+                              ? 'text-black fill-current'
+                              : 'text-gray-300 fill-current'
+                          }`}
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                      ))}
+                    </div>
+                    {product.reviews > 0 && (
+                      <span className="text-sm text-gray-600">({product.reviews})</span>
+                    )}
+                  </div>
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => {
+                        addToCart({
+                          ...product,
+                          price: parseFloat(product.price.replace(',', ''))
+                        });
+                        toast.success('Added to cart!');
+                      }}
+                      className="flex-1 py-2 border-2 border-gray-900 text-gray-900 rounded-full hover:bg-gray-900 hover:text-white transition-colors font-medium text-xs sm:text-sm"
+                    >
+                      ADD TO CART
+                    </button>
+                    <button className="flex-1 py-2 bg-[#81634b] text-white rounded-full hover:bg-[#6b5340] transition-colors font-medium text-xs sm:text-sm">
+                      BUY NOW
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Right Arrow Button */}
+          <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-black text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-800 transition-colors z-10">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Newest Arrivals */}
+  <div className="bg-gray-50 py-10 md:py-16">
+  <div className="container mx-auto px-2 sm:px-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">
+            Discover our Trending Products
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            {[
+              {
+                name: 'Abran High Gloss Collection',
+                details: '5+ Options, Starting at 14,999',
+              },
+              {
+                name: 'Odessa Collection',
+                details: '10+ Options, Starting at 25,999',
+              },
+              {
+                name: 'Almere Solid Wood Collection',
+                details: '5+ Options, Starting at 9,499',
+              },
+              {
+                name: 'Timeless Brass Collection',
+                details: 'Crafted In India',
+              },
+            ].map((collection, index) => (
+              <div
+                key={collection.name}
+                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+              >
+                <img
+                  src={assetAt(index + 5)}
+                  alt={collection.name}
+                  className="w-full h-64 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2">
+                    {collection.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">{collection.details}</p>
+                  <Link
+                    to={`/collection/${collection.name
+                      .toLowerCase()
+                      .replace(' ', '-')}`}
+                    className="inline-block bg-[#81634b] text-white px-6 py-2 rounded-md hover:bg-[#6b5340] transition-colors font-medium"
+                  >
+                    Shop Now
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Interior Trends */}
+  <div className="container mx-auto px-2 sm:px-4 py-10 md:py-16">
+        <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">
+          Follow Home Interior Trends
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+          {[
+            {
+              name: 'Smart Furniture',
+              details: '45+ Options, Starting at 17,999',
+            },
+            {
+              name: 'The Fluted Collection',
+              details: '40+ Options, Starting at 8899',
+            },
+            {
+              name: 'Urban Luxe Sofas',
+              details: '40+ Sofa Options, Starting at 41,999',
+            },
+          ].map((trend, index) => (
+            <div
+              key={trend.name}
+              className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+            >
+              <img
+                src={assetAt(index + 10)}
+                alt={trend.name}
+                className="w-full h-72 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold mb-2">{trend.name}</h3>
+                <p className="text-sm text-gray-600">{trend.details}</p>
+                <Link
+                  to={`/trend/${trend.name.toLowerCase().replace(' ', '-')}`}
+                  className="mt-4 inline-block bg-[#81634b] text-white px-5 py-2 rounded hover:bg-[#6b5340] transition-colors font-semibold shadow"
+                >
+                  Explore Now
+                </Link>
+              </div>
             </div>
           ))}
         </div>
@@ -133,59 +811,5 @@ const Home = () => {
     </div>
   );
 };
-
-const categories = [
-  { 
-    name: 'Quick Alarms', 
-    path: '/quick-alarms', 
-    count: '5 presets', 
-    image: '/images/categories/quick-alarm.jpg'
-  },
-  { 
-    name: 'Sleep Analysis', 
-    path: '/sleep-analysis', 
-    count: 'Pro feature', 
-    image: '/images/categories/sleep-analysis.jpg'
-  },
-  { 
-    name: 'Custom Sounds', 
-    path: '/sounds', 
-    count: '20+ sounds', 
-    image: '/images/categories/sounds.jpg'
-  },
-  { 
-    name: 'Smart Wake', 
-    path: '/smart-wake', 
-    count: 'AI-powered', 
-    image: '/images/categories/smart-wake.jpg'
-  },
-];
-
-const features = [
-  { 
-    id: 1, 
-    name: 'Gradual Wake Up', 
-    description: 'Gentle increasing volume', 
-    image: '/images/features/gradual-wake.jpg'
-  },
-  { 
-    id: 2, 
-    name: 'Sleep Tracking', 
-    description: 'Monitor your patterns', 
-    image: '/images/features/sleep-tracking.jpg'
-  },
-  { 
-    id: 3, 
-    name: 'Multiple Profiles', 
-    description: 'Family sharing', 
-    image: '/images/features/profiles.jpg'
-  },
-  { 
-    id: 4, 
-    name: 'Smart Snooze', 
-    description: 'AI-based intervals', 
-    image: '/images/features/smart-snooze.jpg'
-  },
-];
 
 export default Home;
