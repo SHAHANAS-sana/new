@@ -501,7 +501,7 @@ const Home = () => {
       <div className="relative w-full min-h-screen flex items-center justify-center pt-32 pb-20 px-4">
         {/* Background Image Container */}
         <div className="absolute inset-0 mt-20">
-          <div 
+          <div
             className="w-full h-full rounded-[40px] mx-auto max-w-[95%] overflow-hidden"
             style={{
               backgroundImage: "url('/assets/background image.jpg')",
@@ -509,8 +509,7 @@ const Home = () => {
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
             }}
-          >
-          </div>
+          ></div>
         </div>
 
         {/* Content */}
@@ -519,7 +518,8 @@ const Home = () => {
             {/* Left Content */}
             <div className="text-white">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight mb-6">
-                Bringing Simplicity<br />
+                Bringing Simplicity
+                <br />
                 In The Furnishing Market
               </h1>
               <Link
@@ -529,7 +529,6 @@ const Home = () => {
                 Start Your Furnishing Journey
               </Link>
             </div>
-
           </div>
         </div>
       </div>
@@ -893,7 +892,9 @@ const Home = () => {
             {/* Left Arrow - Shows after scrolling */}
             <button
               onClick={() => {
-                const container = document.getElementById('product-scroll-container');
+                const container = document.getElementById(
+                  'product-scroll-container'
+                );
                 if (container) {
                   container.scrollBy({ left: -500, behavior: 'smooth' });
                 }
@@ -902,8 +903,18 @@ const Home = () => {
               className="absolute left-2 top-1/2 -translate-y-1/2 z-10 backdrop-blur-md bg-white/40 border border-white/60 shadow-xl rounded-full p-4 hover:bg-white/60 transition-all duration-300 hidden md:flex items-center justify-center opacity-0 pointer-events-none"
               style={{ transition: 'opacity 0.3s ease' }}
             >
-              <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-6 h-6 text-gray-800"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.5"
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
             </button>
 
@@ -912,11 +923,11 @@ const Home = () => {
               id="product-scroll-container"
               className="overflow-x-auto scrollbar-hide scroll-smooth"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              onScroll={(e) => {
+              onScroll={e => {
                 const container = e.target;
                 const leftBtn = document.getElementById('left-arrow-btn');
                 const rightBtn = document.getElementById('right-arrow-btn');
-                
+
                 if (leftBtn && rightBtn) {
                   // Show left arrow if scrolled right
                   if (container.scrollLeft > 50) {
@@ -926,9 +937,11 @@ const Home = () => {
                     leftBtn.style.opacity = '0';
                     leftBtn.style.pointerEvents = 'none';
                   }
-                  
+
                   // Hide right arrow if at end
-                  const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 50;
+                  const isAtEnd =
+                    container.scrollLeft + container.clientWidth >=
+                    container.scrollWidth - 50;
                   if (isAtEnd) {
                     rightBtn.style.opacity = '0';
                     rightBtn.style.pointerEvents = 'none';
@@ -939,7 +952,10 @@ const Home = () => {
                 }
               }}
             >
-              <div className="flex gap-8 pb-4 px-8" style={{ minWidth: 'min-content' }}>
+              <div
+                className="flex gap-8 pb-4 px-8"
+                style={{ minWidth: 'min-content' }}
+              >
                 {categoryProducts[activeCategory]?.map((product, index) => (
                   <Link
                     key={index}
@@ -972,7 +988,9 @@ const Home = () => {
             {/* Right Arrow - Always visible initially */}
             <button
               onClick={() => {
-                const container = document.getElementById('product-scroll-container');
+                const container = document.getElementById(
+                  'product-scroll-container'
+                );
                 if (container) {
                   container.scrollBy({ left: 500, behavior: 'smooth' });
                 }
@@ -980,8 +998,18 @@ const Home = () => {
               id="right-arrow-btn"
               className="absolute right-2 top-1/2 -translate-y-1/2 z-10 backdrop-blur-md bg-white/40 border border-white/60 shadow-xl rounded-full p-4 hover:bg-white/60 transition-all duration-300 hidden md:flex items-center justify-center"
             >
-              <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+              <svg
+                className="w-6 h-6 text-gray-800"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2.5"
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
           </div>

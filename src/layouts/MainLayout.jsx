@@ -18,7 +18,8 @@ const MainLayout = ({ children }) => {
             href="/collections"
             className="text-sm font-medium hover:text-[#81634b] hover:underline transition-colors duration-300"
           >
-            Get ₹500 OFF with voucher code 'GIFT500' on a minimum purchase of ₹5000. Enjoy free shipping on orders over ₹999
+            Get ₹500 OFF with voucher code 'GIFT500' on a minimum purchase of
+            ₹5000. Enjoy free shipping on orders over ₹999
           </a>
         </div>
       </div>
