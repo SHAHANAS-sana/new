@@ -498,57 +498,38 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-[#f5f5f3]">
       {/* Hero Section */}
-      <div
-        className="relative w-full h-screen flex items-center"
-        style={{
-          backgroundImage: "url('/assets/background image.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        <div className="absolute inset-0 bg-black/35"></div>
-        <div className="relative w-full flex items-center">
-          <div className="container mx-auto px-2 sm:px-4">
-            <div className="max-w-2xl p-4 rounded-lg">
-              <DynamicContent
-                page="home"
-                section="hero"
-                defaultContent={{
-                  text: 'Transform Your\nLiving Space',
-                  styles: {
-                    color: '#ffffff',
-                    fontSize: '4.5rem',
-                    fontWeight: '300',
-                  },
-                }}
-              />
-              <DynamicContent
-                page="home"
-                section="hero-subtitle"
-                defaultContent={{
-                  text: 'Discover premium furniture and home décor that reflects your style',
-                  styles: {
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    fontSize: '1.25rem',
-                  },
-                }}
-              />
-              <div className="flex flex-col sm:flex-row gap-4 sm:space-x-4">
-                <Link
-                  to="/collections"
-                  className="px-8 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors text-lg font-medium"
-                >
-                  Shop Now
-                </Link>
-                <Link
-                  to="/design-consultation"
-                  className="px-8 py-3 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors text-lg font-medium"
-                >
-                  Free Design Consultation
-                </Link>
-              </div>
+      <div className="relative w-full min-h-screen flex items-center justify-center pt-32 pb-20 px-4">
+        {/* Background Image Container */}
+        <div className="absolute inset-0 mt-20">
+          <div 
+            className="w-full h-full rounded-[40px] mx-auto max-w-[95%] overflow-hidden"
+            style={{
+              backgroundImage: "url('/assets/background image.jpg')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+            }}
+          >
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="text-white">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight mb-6">
+                Bringing Simplicity<br />
+                In The Furnishing Market
+              </h1>
+              <Link
+                to="/collections"
+                className="inline-block px-8 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors text-lg font-medium shadow-lg"
+              >
+                Start Your Furnishing Journey
+              </Link>
             </div>
+
           </div>
         </div>
       </div>
@@ -878,15 +859,16 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Shop All Things Home Section */}
       <div className="bg-white py-8 md:py-12">
-        <div className="container mx-auto text-center px-2 sm:px-4">
+        <div className="container mx-auto px-4">
           {/* Title */}
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#81634b] mb-6 md:mb-8">
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#81634b] mb-6 text-center">
             Shop All Things Home
           </h2>
 
           {/* Category Pills */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 md:mb-12">
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
             {categories.map((category, index) => {
               const isActive = category === activeCategory;
               return (
@@ -897,7 +879,7 @@ const Home = () => {
                     ${
                       isActive
                         ? 'bg-[#81634b] border-[#81634b] text-white shadow-md'
-                        : 'bg-white border-gray-300 text-gray-600 hover:bg-[#81634b]/10 hover:border-[#81634b] hover:text-[#81634b] active:bg-[#81634b]/20 active:border-[#81634b]'
+                        : 'bg-white border-gray-300 text-gray-600 hover:bg-[#81634b]/10 hover:border-[#81634b] hover:text-[#81634b]'
                     }`}
                 >
                   {category}
@@ -906,28 +888,102 @@ const Home = () => {
             })}
           </div>
 
-          {/* Product Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 px-1 sm:px-4">
-            {categoryProducts[activeCategory]?.map((product, index) => (
-              <Link key={index} to={product.link} className="group">
-                <div
-                  className="bg-white border border-gray-200 aspect-square relative overflow-hidden hover:shadow-lg transition-all duration-300"
-                  style={{ borderRadius: '10px' }}
-                >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    onError={e => {
-                      e.target.src = placeholderImage;
-                    }}
-                  />
-                </div>
-                <h3 className="text-center mt-4 text-sm font-medium text-gray-800 group-hover:text-blue-600 transition-colors">
-                  {product.name}
-                </h3>
-              </Link>
-            ))}
+          {/* Product Grid with Arrow Navigation */}
+          <div className="relative">
+            {/* Left Arrow - Shows after scrolling */}
+            <button
+              onClick={() => {
+                const container = document.getElementById('product-scroll-container');
+                if (container) {
+                  container.scrollBy({ left: -500, behavior: 'smooth' });
+                }
+              }}
+              id="left-arrow-btn"
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 backdrop-blur-md bg-white/40 border border-white/60 shadow-xl rounded-full p-4 hover:bg-white/60 transition-all duration-300 hidden md:flex items-center justify-center opacity-0 pointer-events-none"
+              style={{ transition: 'opacity 0.3s ease' }}
+            >
+              <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Scrollable Product Container */}
+            <div
+              id="product-scroll-container"
+              className="overflow-x-auto scrollbar-hide scroll-smooth"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              onScroll={(e) => {
+                const container = e.target;
+                const leftBtn = document.getElementById('left-arrow-btn');
+                const rightBtn = document.getElementById('right-arrow-btn');
+                
+                if (leftBtn && rightBtn) {
+                  // Show left arrow if scrolled right
+                  if (container.scrollLeft > 50) {
+                    leftBtn.style.opacity = '1';
+                    leftBtn.style.pointerEvents = 'auto';
+                  } else {
+                    leftBtn.style.opacity = '0';
+                    leftBtn.style.pointerEvents = 'none';
+                  }
+                  
+                  // Hide right arrow if at end
+                  const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 50;
+                  if (isAtEnd) {
+                    rightBtn.style.opacity = '0';
+                    rightBtn.style.pointerEvents = 'none';
+                  } else {
+                    rightBtn.style.opacity = '1';
+                    rightBtn.style.pointerEvents = 'auto';
+                  }
+                }
+              }}
+            >
+              <div className="flex gap-8 pb-4 px-8" style={{ minWidth: 'min-content' }}>
+                {categoryProducts[activeCategory]?.map((product, index) => (
+                  <Link
+                    key={index}
+                    to={product.link}
+                    className="group flex-shrink-0"
+                    style={{ width: '280px' }}
+                  >
+                    <div className="bg-gray-50 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300">
+                      <div className="aspect-square relative overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          onError={e => {
+                            e.target.src = placeholderImage;
+                          }}
+                        />
+                      </div>
+                      <div className="p-4 bg-white">
+                        <h3 className="text-base font-semibold text-gray-900 group-hover:text-[#81634b] transition-colors">
+                          {product.name}
+                        </h3>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Arrow - Always visible initially */}
+            <button
+              onClick={() => {
+                const container = document.getElementById('product-scroll-container');
+                if (container) {
+                  container.scrollBy({ left: 500, behavior: 'smooth' });
+                }
+              }}
+              id="right-arrow-btn"
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 backdrop-blur-md bg-white/40 border border-white/60 shadow-xl rounded-full p-4 hover:bg-white/60 transition-all duration-300 hidden md:flex items-center justify-center"
+            >
+              <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -1027,45 +1083,6 @@ const Home = () => {
           >
             Explore More Deals
           </Link>
-        </div>
-      </div>
-
-      {/* Best Seller Categories */}
-      <div className="bg-gray-50 py-10 md:py-16">
-        <div className="container mx-auto px-2 sm:px-4">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-6 md:mb-8">
-            Explore Best Seller Categories
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-            {['Furniture', 'Mattresses', 'Home Goods'].map(
-              (category, index) => (
-                <div
-                  key={category}
-                  className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div
-                    className="w-full bg-white"
-                    style={{ aspectRatio: '16/9' }}
-                  >
-                    <img
-                      src={assetAt(index)}
-                      alt={category}
-                      className="w-full h-full object-cover md:object-contain"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-xl font-semibold mb-2">{category}</h3>
-                    <Link
-                      to={`/category/${category.toLowerCase()}`}
-                      className="inline-block bg-[#81634b] text-white px-6 py-2 rounded-md hover:bg-[#6b5340] transition-colors font-medium"
-                    >
-                      Buy Now
-                    </Link>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
         </div>
       </div>
 

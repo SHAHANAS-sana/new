@@ -11,31 +11,15 @@ const MainLayout = ({ children }) => {
     <div
       className={`min-h-screen flex flex-col ${isHomePage ? '' : 'bg-gray-50'}`}
     >
-      {/* Sliding Announcement Banner */}
-      <div className="bg-[#81634b] text-white py-2.5 overflow-hidden fixed top-0 left-0 right-0 z-50">
-        <div className="animate-scroll whitespace-nowrap inline-block">
-          <span className="inline-block">
-            {[...Array(8)].map((_, index) => (
-              <span
-                key={index}
-                className="inline-block mx-8 text-sm font-medium"
-              >
-                ⭐ Get ₹500 OFF with voucher code 'GIFT500' on a minimum
-                purchase of ₹5000. Enjoy free shipping on orders over ₹999
-              </span>
-            ))}
-          </span>
-          <span className="inline-block" aria-hidden="true">
-            {[...Array(8)].map((_, index) => (
-              <span
-                key={index}
-                className="inline-block mx-8 text-sm font-medium"
-              >
-                ⭐ Get ₹500 OFF with voucher code 'GIFT500' on a minimum
-                purchase of ₹5000. Enjoy free shipping on orders over ₹999
-              </span>
-            ))}
-          </span>
+      {/* Announcement Banner */}
+      <div className="bg-white text-black py-3 fixed top-0 left-0 right-0 z-50 border-b border-gray-200">
+        <div className="text-center">
+          <a
+            href="/collections"
+            className="text-sm font-medium hover:text-[#81634b] hover:underline transition-colors duration-300"
+          >
+            Get ₹500 OFF with voucher code 'GIFT500' on a minimum purchase of ₹5000. Enjoy free shipping on orders over ₹999
+          </a>
         </div>
       </div>
 

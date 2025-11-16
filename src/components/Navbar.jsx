@@ -18,26 +18,20 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full z-40 transition-colors duration-300 rounded-b-lg 
-        backdrop-blur-[7px] bg-[#81634b]/60 shadow-lg
-        before:absolute before:inset-0 before:z-[-1] before:rounded-b-lg
-        before:bg-gradient-to-b before:from-white/10 before:to-transparent
-        before:backdrop-filter before:backdrop-blur-[7px]`}
+      className="fixed w-full z-50 px-4 md:px-8 pt-6"
       style={{
-        WebkitBackdropFilter: 'blur(7px)',
-        backdropFilter: 'blur(7px)',
         top: '40px',
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+      <div className="max-w-7xl mx-auto bg-white rounded-[30px] shadow-xl px-6 md:px-8">
+        <div className="flex justify-between items-center h-20">
           {/* Logo - Now leftmost */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center py-2">
               <img
-                src="/assets/logo.png"
+                src="/assets/logo-removebg-preview.png"
                 alt="Alrams Furniture & Interiors"
-                className="h-12 md:h-14 w-auto object-contain bg-white px-2 py-1 rounded"
+                className="h-12 md:h-14 w-auto object-contain"
               />
             </Link>
           </div>
@@ -48,7 +42,7 @@ const Navbar = () => {
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="px-4 py-2 rounded-md transition-colors flex items-center text-white hover:bg-white/10"
+                className="px-4 py-2 rounded-md transition-colors flex items-center text-gray-700 hover:text-[#81634b] font-medium"
               >
                 Categories
                 <svg
@@ -108,11 +102,7 @@ const Navbar = () => {
                 />
                 <button
                   onClick={() => setIsSearchOpen(!isSearchOpen)}
-                  className={`absolute left-2 p-2 hover:bg-gray-200 rounded-full transition-colors ${
-                    isHomePage
-                      ? 'text-white hover:text-gray-800'
-                      : 'text-gray-600'
-                  }`}
+                  className="absolute left-2 p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-600"
                 >
                   <svg
                     className="w-5 h-5"
@@ -134,7 +124,7 @@ const Navbar = () => {
             {/* Navigation Links */}
             <Link
               to="/cart"
-              className="relative px-4 py-2 rounded-md transition-colors text-white hover:bg-white/10 flex items-center"
+              className="relative px-4 py-2 rounded-md transition-colors text-gray-700 hover:text-[#81634b] flex items-center"
             >
               <svg
                 className="w-6 h-6"
@@ -163,21 +153,21 @@ const Navbar = () => {
 
             <Link
               to="/about"
-              className="px-4 py-2 rounded-md transition-colors text-white hover:bg-white/10"
+              className="px-4 py-2 rounded-md transition-colors text-gray-700 hover:text-[#81634b] font-medium"
             >
               About
             </Link>
 
             <Link
               to="/contact"
-              className="px-4 py-2 rounded-md transition-colors text-white hover:bg-white/10"
+              className="px-4 py-2 rounded-md transition-colors text-gray-700 hover:text-[#81634b] font-medium"
             >
               Contact Us
             </Link>
 
             <Link
               to="/login"
-              className="px-4 py-2 rounded-md transition-colors text-white hover:bg-white/10"
+              className="px-4 py-2 rounded-md transition-colors text-gray-700 hover:text-[#81634b] font-medium"
             >
               Login
             </Link>
