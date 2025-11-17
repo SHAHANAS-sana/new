@@ -1,14 +1,128 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import DynamicContent from '../components/DynamicContent';
 import { useCart } from '../contexts/CartContext';
 import { toast } from 'react-toastify';
+import { fetchInstagramReels } from '../services/instagram';
 
 const Home = () => {
   const [activeCategory, setActiveCategory] = useState('Living Room');
   const { addToCart } = useCart();
+  const scrollContainerRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [instagramReels, setInstagramReels] = useState([]);
+  const [reelsLoading, setReelsLoading] = useState(true);
+  const reelsSectionRef = useRef(null);
+  const [reelsInView, setReelsInView] = useState(false);
+  const videoRefs = useRef([]);
   // Add a placeholder image constant
   const placeholderImage = 'https://via.placeholder.com/400x300';
+
+  // Fetch Instagram reels
+  useEffect(() => {
+    const loadInstagramReels = async () => {
+      try {
+        setReelsLoading(true);
+        const reels = await fetchInstagramReels();
+        setInstagramReels(reels);
+      } catch (error) {
+        console.error('Error loading Instagram reels:', error);
+        // Service will return fallback reels automatically
+        setInstagramReels([
+          {
+            id: '1',
+            permalink: 'https://www.instagram.com/alramsfurnitureshowroom/reels/',
+            thumbnail: '/assets/living room-13.jpeg',
+            caption: 'View Our Latest Reels',
+            videoUrl: '/assets/reel-video-1.mp4' // Optional: add if you have video files
+          },
+          {
+            id: '2',
+            permalink: 'https://www.instagram.com/alramsfurnitureshowroom/reels/',
+            thumbnail: '/assets/living room-11.jpeg',
+            caption: 'Explore More Designs',
+            videoUrl: '/assets/reel-video-2.mp4' // Optional: add if you have video files
+          }
+        ]);
+      } finally {
+        setReelsLoading(false);
+      }
+    };
+
+    loadInstagramReels();
+  }, []);
+
+  // Intersection Observer for autoplay when reels section is visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setReelsInView(entry.isIntersecting);
+          
+          // Autoplay videos when section is in view
+          if (entry.isIntersecting) {
+            videoRefs.current.forEach((video) => {
+              if (video) {
+                video.play().catch((err) => {
+                  console.log('Autoplay prevented:', err);
+                });
+              }
+            });
+          } else {
+            // Pause videos when section is out of view
+            videoRefs.current.forEach((video) => {
+              if (video) {
+                video.pause();
+              }
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of section is visible
+        rootMargin: '0px'
+      }
+    );
+
+    if (reelsSectionRef.current) {
+      observer.observe(reelsSectionRef.current);
+    }
+
+    return () => {
+      if (reelsSectionRef.current) {
+        observer.unobserve(reelsSectionRef.current);
+      }
+    };
+  }, [instagramReels]);
+
+  // Auto-scroll effect
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || isHovered) return;
+
+    const scrollSpeed = 0.5; // Pixels per frame (slow speed)
+    let animationFrameId;
+
+    const autoScroll = () => {
+      if (!isHovered && container) {
+        container.scrollLeft += scrollSpeed;
+        
+        // Reset to start when reaching the end
+        if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+          container.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(autoScroll);
+    };
+
+    animationFrameId = requestAnimationFrame(autoScroll);
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [activeCategory, isHovered]);
 
   // Local assets to populate product images across sections
   const assetImages = [
@@ -524,9 +638,9 @@ const Home = () => {
               </h1>
               <Link
                 to="/collections"
-                className="inline-block px-8 py-3 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors text-lg font-medium shadow-lg"
+                className="inline-block px-10 py-4 border-2 border-white text-white rounded-md hover:bg-white hover:text-[#81634b] transition-all duration-300 text-base font-semibold tracking-wide uppercase"
               >
-                Start Your Furnishing Journey
+                Shop Now
               </Link>
             </div>
           </div>
@@ -920,9 +1034,12 @@ const Home = () => {
 
             {/* Scrollable Product Container */}
             <div
+              ref={scrollContainerRef}
               id="product-scroll-container"
               className="overflow-x-auto scrollbar-hide scroll-smooth"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
               onScroll={e => {
                 const container = e.target;
                 const leftBtn = document.getElementById('left-arrow-btn');
@@ -1012,6 +1129,70 @@ const Home = () => {
                 />
               </svg>
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Instagram Reels Section */}
+      <div ref={reelsSectionRef} className="bg-gradient-to-b from-gray-50 to-white py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#81634b] mb-3">
+              Follow Us on Instagram
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Check out our latest furniture collections and design inspiration
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-8">
+            {instagramReels.slice(0, 2).map((reel) => (
+              <div key={reel.id} className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
+                {/* Instagram Embed - Shows actual real reel content */}
+                <div className="relative w-full" style={{ paddingBottom: '177.78%' }}>
+                  <iframe
+                    src={reel.embedUrl}
+                    className="absolute top-0 left-0 w-full h-full border-0"
+                    allowFullScreen
+                    scrolling="no"
+                    allow="encrypted-media"
+                    title={reel.caption}
+                  />
+                </div>
+                {/* Caption and Link */}
+                <div className="p-4 border-t border-gray-100">
+                  <a
+                    href={reel.permalink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-gray-700 hover:text-[#81634b] transition-colors group"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                    <span className="text-sm font-medium group-hover:underline">@alramsfurnitureshowroom</span>
+                  </a>
+                  <p className="text-gray-600 text-sm mt-2 line-clamp-2">{reel.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+
+
+          {/* Follow Button */}
+          <div className="text-center">
+            <a
+              href="https://www.instagram.com/alramsfurnitureshowroom/?igsh=MTczdDJoYTVuZWhuMg%3D%3D"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white rounded-full font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+              Follow Us on Instagram
+            </a>
           </div>
         </div>
       </div>

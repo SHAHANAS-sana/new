@@ -28,7 +28,7 @@ const Footer = () => {
     SOCIAL: [
       {
         name: 'Instagram',
-        path: 'https://instagram.com',
+        path: 'https://www.instagram.com/alramsfurnitureshowroom?igsh=MTczdDJoYTVuZWhuMg==',
         icon: <FaInstagram />,
       },
       { name: 'Facebook', path: 'https://facebook.com', icon: <FaFacebookF /> },
